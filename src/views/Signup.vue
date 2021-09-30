@@ -26,8 +26,7 @@
 </template>
 
 <script>
-
-
+import Account from '../store/Accounts'
 export default {
   name: "Signup",
   data() {
@@ -38,10 +37,17 @@ export default {
         email : '',
         password : '',
         cfpass :''
-      }
+      },
+      account : []
     }
-  },
+  },created () {
+        this.fetchAccount()
+    },
   methods : {
+    async fetchAccount(){
+            await Account.dispatch('fetchAccount')
+            this.accounts = Account.getters.accounts
+        },
     clearForm(){
       this.signup_form = {
         name : '',
@@ -52,8 +58,8 @@ export default {
       }
     },
     addFrom(){
+      
       if (this.signup_form.password != this.signup_form.cfpass){
-        console.log("error")
         alert("Password and Confirm password not match ")
       }
       else {
