@@ -13,6 +13,10 @@
       <v-col class="filemail" md="5">
         <v-text-field  type="email" v-model = "signup_form.email" outlined ></v-text-field>
       </v-col>
+      <label>Username : </label>
+      <v-col class="filusername" md="5">
+        <v-text-field v-model= "signup_form.username" outlined></v-text-field>
+      </v-col>
       <label>Passsword : </label>
       <v-col class="filepass" md="5">
         <v-text-field  type="password" v-model = "signup_form.password"  outlined ></v-text-field>
@@ -32,6 +36,7 @@ export default {
   data() {
     return {
       signup_form : {
+        username : '',
         name : '',
         surname : '',
         email : '',
@@ -50,6 +55,7 @@ export default {
         },
     clearForm(){
       this.signup_form = {
+        username : '',
         name : '',
         surname : '',
         email : '',
@@ -64,6 +70,7 @@ export default {
       }
       else {
         let payload = {
+          username : this.signup_form.username,
           name: this.signup_form.name,
           surname : this.signup_form.surname,
           email : this.signup_form.email,
