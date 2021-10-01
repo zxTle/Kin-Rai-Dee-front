@@ -1,5 +1,5 @@
 <template>
-    <v-container class="filform">
+    <v-form class="filform">
       <h1>Signup</h1>
       <label>Name : </label>
       <v-col class="filname" md="5">
@@ -25,12 +25,15 @@
       <v-col class="filepass" md="5">
         <v-text-field  type="password" v-model = "signup_form.cfpass" outlined ></v-text-field>
       </v-col>
+      
       <v-btn class= "btnsignup" @click="addFrom" elevation="2">Sign up</v-btn>
-    </v-container>
+
+      
+    </v-form>
 </template>
 
 <script>
-import Account from '../store/Accounts'
+import Account rom '../store/Accounts'
 export default {
   name: "Signup",
   data() {
@@ -51,7 +54,7 @@ export default {
   methods : {
     async fetchAccount(){
             await Account.dispatch('fetchAccount')
-            this.accounts = Account.getters.accounts
+            this.account = Account.getters.accounts
         },
     clearForm(){
       this.signup_form = {
@@ -64,9 +67,8 @@ export default {
       }
     },
     addFrom(){
-      
-      if (this.signup_form.password != this.signup_form.cfpass){
-        alert("Password and Confirm password not match ")
+      if (!(this.checkField())){
+        alert("Can't create account")
       }
       else {
         let payload = {
@@ -81,6 +83,17 @@ export default {
         console.log(payload)
         this.clearForm()
       }
+    },
+    checkField(){
+      this.account.forEach((acc) => {
+        if((acc.username == this.signup_form.username) || (acc.email == this.signup_form.email)){
+          return false
+          }
+      })
+      if (this.signup_form.password != this.signup_form.cfpass){
+        return false
+      }
+      else {return true}
     }
   }
 
@@ -90,6 +103,9 @@ export default {
 <style scoped lang="css">
 .btnsignup{
   text-align: center;
+}
+.datefil{
+  width: 60px;
 }
 
 </style>
