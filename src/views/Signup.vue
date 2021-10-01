@@ -44,8 +44,10 @@
 
 <script>
 
+
 import Account from '../store/Accounts'
 import { format, parseISO } from 'date-fns'
+
 export default {
   data() {
     return {
@@ -84,6 +86,7 @@ export default {
         this.$refs.menu.save(date)
     },
     addFrom(){
+      console.log(this.signup_form.birthDay)
       if (!(this.checkField())){
         alert("Can't create account")
       }
