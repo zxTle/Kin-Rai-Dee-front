@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import Account rom '../store/Accounts'
+import Account from '../store/Accounts'
 export default {
   name: "Signup",
   data() {
