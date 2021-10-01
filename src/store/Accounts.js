@@ -26,12 +26,19 @@ export default new Vuex.Store({
   mutations: {
       fetch(state, {acc}){
           state.data = acc.data
+      },
+      addAccount(state,signup){
+          state.data.push(signup)
       }
   },
   actions: {
       async fetchAccount({commit}){
           let acc = await axios.get(api)
           commit('fetch',{acc})
+      },
+      async signupAccount({commit},account){
+          let acc = await axios.post(api,account)
+          commit('addAccount',acc)
       }
   },
   modules: {

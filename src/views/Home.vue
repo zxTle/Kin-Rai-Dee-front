@@ -2,7 +2,6 @@
   <v-container class="btn">
     <v-btn  elevation="2" to="/signup">Signup</v-btn>
     <router-link to ="/test">Test</router-link>
-    <router-link to = "/login">Log in</router-link>
   </v-container>
 
 </template>

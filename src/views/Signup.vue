@@ -7,7 +7,7 @@
      </v-col>
       <label>Surname : </label>
       <v-col class="filsurname" md="5">
-        <v-text-field  v-model = "signup_form.surname" outlined ></v-text-field>
+        <v-text-field  v-model = "signup_form.surName" outlined ></v-text-field>
       </v-col>
       <label>Email : </label>
       <v-col class="filemail" md="5">
@@ -26,6 +26,16 @@
         <v-text-field  type="password" v-model = "signup_form.cfpass" outlined ></v-text-field>
       </v-col>
       
+      <v-menu max-width="290"
+      v-model="menu"
+  :close-on-content-click="false">
+    <template v-slot:activator="{ on }">
+        <v-text-field  :value="formattedDate" label="Birthday Date" prepend-icon="mdi-calendar-range" v-on="on"></v-text-field>
+    </template>
+    <v-date-picker v-model="signup_form.birthDay"
+    @change="menu = false"></v-date-picker>
+    </v-menu>
+
       <v-btn class= "btnsignup" @click="addFrom" elevation="2">Sign up</v-btn>
 
       
@@ -33,20 +43,23 @@
 </template>
 
 <script>
-import Account rom '../store/Accounts'
+
+import Account from '../store/Accounts'
+import { format, parseISO } from 'date-fns'
 export default {
-  name: "Signup",
   data() {
     return {
       signup_form : {
         username : '',
         name : '',
-        surname : '',
+        surName : '',
         email : '',
         password : '',
-        cfpass :''
+        cfpass :'',
+        birthDay : ''
       },
-      account : []
+      account : [],
+      menu: false
     }
   },created () {
         this.fetchAccount()
@@ -60,11 +73,15 @@ export default {
       this.signup_form = {
         username : '',
         name : '',
-        surname : '',
+        surName : '',
         email : '',
         password : '',
-        cfpass :''
+        cfpass :'',
+        birthDay : ''
       }
+    },
+    save(date){
+        this.$refs.menu.save(date)
     },
     addFrom(){
       if (!(this.checkField())){
@@ -74,13 +91,14 @@ export default {
         let payload = {
           username : this.signup_form.username,
           name: this.signup_form.name,
-          surname : this.signup_form.surname,
+          surName : this.signup_form.surName,
           email : this.signup_form.email,
           password :this.signup_form.password,
-          cfpass :this.signup_form.cfpass
+          cfpass :this.signup_form.cfpass,
+          birthDay : this.signup_form.birthDay
         }
 
-        console.log(payload)
+        Account.dispatch('signupAccount',payload)
         this.clearForm()
       }
     },
@@ -94,6 +112,11 @@ export default {
         return false
       }
       else {return true}
+    }
+  },
+  computed : {
+    formattedDate(){
+      return this.signup_form.birthDay ? format(parseISO(this.signup_form.birthDay), 'dd-MM-yyyy') : ''
     }
   }
 
