@@ -86,7 +86,6 @@ export default {
         this.$refs.menu.save(date)
     },
     addFrom(){
-      console.log(this.signup_form.birthDay)
       if (!(this.checkField())){
         alert("Can't create account")
       }
@@ -98,7 +97,7 @@ export default {
           email : this.signup_form.email,
           password :this.signup_form.password,
           cfpass :this.signup_form.cfpass,
-          birthDay : this.signup_form.birthDay
+          birthDay : format(parseISO(this.signup_form.birthDay),'dd-MM-yyyy')
         }
 
         Account.dispatch('signupAccount',payload)
