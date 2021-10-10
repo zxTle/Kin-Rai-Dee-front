@@ -3,6 +3,10 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Signup from "../views/Signup.vue"
 import Test from "@/views/Test.vue"
+import Login from "@/views/auth/Login.vue"
+import Logout from '@/views/auth/Logout.vue'
+import Admin from '@/views/Admin.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -20,6 +24,11 @@ const routes = [
     path: '/test',
     name : 'Test',
     component :Test
+  },
+  {
+    path : '/admin',
+    name :'Admin',
+    component : Admin
   }
 ]
 
