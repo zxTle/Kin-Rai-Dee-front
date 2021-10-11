@@ -18,6 +18,13 @@
         color="#C50000"
     >
         <v-list nav>
+        <v-container class="closebar">
+          <v-btn icon @click.stop="drawer = !drawer">
+            <v-icon color="white">
+              fas fa-times
+            </v-icon>
+          </v-btn>
+        </v-container>
         <v-list-item-group class="menu">
             <v-list-item>
             <v-list-item-title class="home-btn">หน้าหลัก</v-list-item-title>
@@ -45,7 +52,7 @@ export default {
     name : 'Bar',
     data() {
       return {
-        drawer :false
+        drawer :false,
       
       }
     }
