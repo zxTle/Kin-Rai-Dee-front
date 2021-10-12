@@ -4,6 +4,10 @@ import Home from '../views/Home.vue'
 import Signup from "../views/Signup.vue"
 import Test from "@/views/Test.vue"
 import Random from "@/views/Random.vue"
+//import Login from "@/views/auth/Login.vue"
+//import Logout from '@/views/auth/Logout.vue'
+import Admin from '@/views/Admin.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -26,6 +30,11 @@ const routes = [
     path: '/random',
     name : 'Random',
     component :Random
+  },
+  {
+    path : '/admin',
+    name :'Admin',
+    component : Admin
   }
 ]
 
