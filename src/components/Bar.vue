@@ -26,7 +26,7 @@
           </v-btn>
         </v-container>
         <v-list-item-group class="menu">
-            <v-list-item>
+            <v-list-item to="/">
             <v-list-item-title class="home-btn">หน้าหลัก</v-list-item-title>
             </v-list-item>
 
