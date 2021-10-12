@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Signup from "../views/Signup.vue"
 import Test from "@/views/Test.vue"
+import Random from "@/views/Random.vue"
 Vue.use(VueRouter)
 
 const routes = [
@@ -20,6 +21,11 @@ const routes = [
     path: '/test',
     name : 'Test',
     component :Test
+  },
+  {
+    path: '/random',
+    name : 'Random',
+    component :Random
   }
 ]
 

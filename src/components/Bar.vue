@@ -30,7 +30,7 @@
             <v-list-item-title class="home-btn">หน้าหลัก</v-list-item-title>
             </v-list-item>
 
-            <v-list-item>
+            <v-list-item to="/random">
             <v-list-item-title class="random-btn">สุ่มอาหาร</v-list-item-title>
             </v-list-item>
 
