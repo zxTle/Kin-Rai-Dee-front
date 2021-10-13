@@ -16,7 +16,7 @@ export default new Vuex.Store({
               email : '',
               name : '',
               surName : '',
-              birthDay : Date
+              birthDay : ''
           }
       ]  
   },

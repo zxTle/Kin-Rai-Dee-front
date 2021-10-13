@@ -1,0 +1,37 @@
+.web-name{
+    font-family: "FC Palette";
+    color: white;
+    text-align: center;
+    margin: auto;
+  }
+  .engname{
+    font-size: 100px;
+  }
+  .thainame{
+    font-size: 50px;
+    line-height: 20px;
+  }
+  .menu{
+    padding-top: 50px;
+    font-family: "supermarket";
+    text-align: center;
+  }
+  .home-btn{
+    font-size: 20px;
+    color: white;
+  }
+  .random-btn{
+    font-size: 20px;
+    color: white;
+  }
+  .signin-btn{
+    font-size: 20px;
+    color: white;
+  }
+  .signup-btn{
+    font-size: 20px;
+    color: white;
+  }
+  .closebar{
+    margin-top: 5px;
+  }

@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
     <v-form class="filform">
       <h1>Signup</h1>
       <label>Name : </label>
@@ -127,4 +128,249 @@ export default {
 .datefil{
   width: 60px;
 }
+=======
+  <v-form class="filform">
+    <div class="border font-FC-Palette">
+      <h1>Sign up</h1>
+    </div>
+
+    <div class="mt-10 ml-5">
+      <div class="d-flex flex-row ml-5">
+        <label class="pt-5 font-FC-Palette font-size">Name : </label>
+        <v-col class="filname" md="5">
+          <v-text-field
+            class="text-field-size mr-3"
+            v-model="signup_form.name"
+            outlined
+            rounded
+            dense
+          ></v-text-field>
+        </v-col>
+        <label class="pt-5 font-FC-Palette font-size float-left ml-1"
+          >Surname :
+        </label>
+        <v-col class="filsurname" md="5">
+          <v-text-field
+            class="text-field-size ml-2"
+            v-model="signup_form.surName"
+            outlined
+            rounded
+            dense
+          ></v-text-field>
+        </v-col>
+      </div>
+
+      <div class="d-flex flex-row">
+        <label class="font-FC-Palette font-size pt-5 ml-5">Email : </label>
+        <v-col class="filemail" md="5">
+          <v-text-field
+            class="text-field-size"
+            type="email"
+            v-model="signup_form.email"
+            outlined
+            rounded
+            dense
+          ></v-text-field>
+        </v-col>
+        <label class="font-FC-Palette font-size pt-5">Username : </label>
+        <v-col class="filusername" md="5">
+          <v-text-field
+            class="text-field-size"
+            v-model="signup_form.username"
+            outlined
+            rounded
+            dense
+          ></v-text-field>
+        </v-col>
+      </div>
+
+      <div class="d-flex flex-row">
+        <label class="font-FC-Palette font-size pt-5 ml-5">Passsword :</label>
+        <v-col class="filepass" md="5">
+          <v-text-field
+            class="text-field-size300 ml-16"
+            type="password"
+            v-model="signup_form.password"
+            outlined
+            rounded
+            dense
+          ></v-text-field>
+        </v-col>
+      </div>
+      <div class="d-flex flex-row">
+        <label class="font-FC-Palette font-size pt-5 ml-5">Confirm passsword :</label>
+        <v-col class="filepass" md="5">
+          <v-text-field
+            class="text-field-size290"
+            type="password"
+            v-model="signup_form.cfpass"
+            outlined
+            rounded
+            dense
+          ></v-text-field>
+        </v-col>
+      </div>
+
+      <v-menu max-width="290" v-model="menu" :close-on-content-click="false">
+        <template v-slot:activator="{ on }">
+          <v-text-field
+            :value="formattedDate"
+            label="Birthday Date"
+            class="font-FC-Palette font-size text-field-size ml-5"
+            prepend-icon="mdi-calendar-range"
+            v-on="on"
+          ></v-text-field>
+        </template>
+        <v-date-picker
+          v-model="signup_form.birthDay"
+          @change="menu = false"
+        ></v-date-picker>
+      </v-menu>
+
+      <v-col align="center">
+        <v-btn
+          class="white--text btnsignup font-FC-Palette"
+          color="#d72323"
+          rounded
+          @click="addFrom"
+          elevation="10"
+          x-large
+          :loading="loading"
+          >Sign up</v-btn
+        >
+      </v-col>
+    </div>
+  </v-form>
+</template>
+
+<script>
+import Account from "../store/Accounts";
+import { format, parseISO } from "date-fns";
+export default {
+  data() {
+    return {
+      signup_form: {
+        username: "",
+        name: "",
+        surName: "",
+        email: "",
+        password: "",
+        cfpass: "",
+        birthDay: "",
+      },
+      account: [],
+      menu: false,
+      loading: false,
+    };
+  },
+  created() {
+    this.fetchAccount();
+  },
+  methods: {
+    async fetchAccount() {
+      await Account.dispatch("fetchAccount");
+      this.account = Account.getters.accounts;
+    },
+    clearForm() {
+      this.signup_form = {
+        username: "",
+        name: "",
+        surName: "",
+        email: "",
+        password: "",
+        cfpass: "",
+        birthDay: "",
+      };
+    },
+    save(date) {
+      this.$refs.menu.save(date);
+    },
+    addFrom() {
+      console.log(this.signup_form.birthDay);
+      if (!this.checkField()) {
+        alert("Can't create account");
+      } else {
+        let payload = {
+          username: this.signup_form.username,
+          name: this.signup_form.name,
+          surName: this.signup_form.surName,
+          email: this.signup_form.email,
+          password: this.signup_form.password,
+          cfpass: this.signup_form.cfpass,
+          birthDay: this.signup_form.birthDay,
+        };
+        Account.dispatch("signupAccount", payload);
+        this.clearForm();
+      }
+    },
+    checkField() {
+      this.account.forEach((acc) => {
+        if (
+          acc.username === this.signup_form.username ||
+          acc.email === this.signup_form.email
+        ) {
+          return false;
+        }
+      });
+      if (this.signup_form.password !== this.signup_form.cfpass) {
+        return false;
+      }
+      if(this.signup_form.password.length <6 ){
+        return false
+      } 
+      else {
+        return true;
+      }
+    },
+  },
+  computed: {
+    formattedDate() {
+      return this.signup_form.birthDay
+        ? format(parseISO(this.signup_form.birthDay), "dd-MM-yyyy")
+        : "";
+    },
+  },
+};
+</script>
+
+<style scoped lang="css">
+.text-field-size290{
+  width: 290px;
+}
+.text-field-size300{
+  width: 300px;
+}
+.text-field-size {
+  width: 400px;
+}
+.font-size {
+  font-size: 22px;
+}
+.font-FC-Palette {
+  font-family: "FC Palette";
+}
+.font-form {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.btnsignup {
+  font-size: 20px;
+  box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 50px;
+}
+.datefil {
+  width: 60px;
+}
+.border {
+  font-size: 25px;
+  margin-left: 50px;
+  margin-top: 50px;
+  text-align: center;
+  padding-top: 10px;
+  width: 200px;
+  height: 100px;
+  background: #ffffff;
+  border: 7.75px solid #d72323;
+  border-radius: 100px;
+}
+>>>>>>> develop
 </style>
