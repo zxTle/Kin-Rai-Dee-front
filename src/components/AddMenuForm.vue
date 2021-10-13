@@ -11,7 +11,7 @@
           <v-text-field
             class="nameTextField"
             v-model="add_form.name"
-            :rules="[() => !!add_form.name || 'This field is required']"
+            :rules="[() => !!add_form.name || 'กรุญากรอกข้อมูล']"
             outlined
             clearable
             rounded
@@ -27,7 +27,7 @@
             placeholder="types"
             :items="type"
             v-model="add_form.type"
-            :rules="[() => !!add_form.type || 'This field is required']"
+            :rules="[() => !!add_form.type || 'กรุญากรอกข้อมูล']"
             outlined
             clearable
             rounded
@@ -43,7 +43,7 @@
           <v-text-field
             class="grabFieldForm"
             v-model="add_form.grabLink"
-            :rules="[() => !!add_form.grabLink || 'This field is required']"
+            :rules="[() => !!add_form.grabLink || 'กรุญากรอกข้อมูล']"
             outlined
             clearable
             rounded
@@ -58,7 +58,7 @@
             class="categoryFieldForm"
             :items="category"
             v-model="add_form.category"
-            :rules="[() => !!add_form.category || 'This field is required']"
+            :rules="[() => !!add_form.category || 'กรุญากรอกข้อมูล']"
             outlined
             clearable
             rounded
@@ -68,13 +68,13 @@
         </v-col>
       </div>
 
-      <div class="d-flex flex-row">
+      <div>
         <label class="pt-3">Ingredients : </label>
         <v-col class="filingredients" md="5">
           <v-textarea
             class="font-form"
             v-model="add_form.ingredients"
-            :rules="[() => !!add_form.ingredients || 'This field is required']"
+            :rules="[() => !!add_form.ingredients || 'กรุญากรอกข้อมูล']"
             outlined
             clearable
             rounded
@@ -83,13 +83,13 @@
         </v-col>
       </div>
 
-      <div class="d-flex flex-row">
+      <div>
         <label class="pt-3">How To Cook : </label>
         <v-col class="filhowto" md="5">
           <v-textarea
             class="font-form"
             v-model="add_form.how_to"
-            :rules="[() => !!add_form.how_to || 'This field is required']"
+            :rules="[() => !!add_form.how_to || 'กรุญากรอกข้อมูล']"
             outlined
             clearable
             rounded
