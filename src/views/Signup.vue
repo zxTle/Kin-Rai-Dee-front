@@ -1,12 +1,16 @@
 <template>
-  <sign-up-form></sign-up-form>
+  <div>
+    <bar></bar>
+    <sign-up-form></sign-up-form>
+  </div>
 </template>
 
 <script>
 import SignUpForm from '@/components/SignUpForm'
+import Bar from '@/components/Bar'
 export default {
   components:{
-    SignUpForm
+    SignUpForm,Bar
   }
 }
 </script>

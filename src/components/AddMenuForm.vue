@@ -9,7 +9,7 @@
         <label class="pt-5">Name :</label>
         <v-col cols="5" sm="5">
           <v-text-field
-            class="nameTextField"
+            class="textField-format font-form ml-13"
             v-model="add_form.name"
             :rules="[() => !!add_form.name || 'กรุญากรอกข้อมูล']"
             outlined
@@ -19,11 +19,11 @@
             dense
           ></v-text-field>
         </v-col>
-        <div class="mr-10"></div>
-        <label class="pt-5 ml-5">Type : </label>
+
+        <label class="pt-5 ml-10">Type : </label>
         <v-col class="filtype">
           <v-select
-            class="typeTextField"
+            class="textField-format font-form ml-10"
             placeholder="types"
             :items="type"
             v-model="add_form.type"
@@ -41,7 +41,7 @@
         <label class="pt-5">Grab Link : </label>
         <v-col class="filgrablink" md="5">
           <v-text-field
-            class="grabFieldForm"
+            class="textField-format font-form ml-4"
             v-model="add_form.grabLink"
             :rules="[() => !!add_form.grabLink || 'กรุญากรอกข้อมูล']"
             outlined
@@ -52,10 +52,10 @@
           ></v-text-field>
         </v-col>
         <label class="pt-5">Category : </label>
-        <v-col class="filcategory" md="5">
+        <v-col class="filcategory mb-5" md="5">
           <v-select
             placeholder="category"
-            class="categoryFieldForm"
+            class="textField-format font-form ml-1"
             :items="category"
             v-model="add_form.category"
             :rules="[() => !!add_form.category || 'กรุญากรอกข้อมูล']"
@@ -102,7 +102,7 @@
         <v-container fluid>
           <label align="left">Choose image : </label>
           <v-file-input
-            class="imgInput"
+            class="textField-format"
             required
             v-model="image"
             accept="image/png, image/jpeg ,image/jpg"
@@ -120,13 +120,10 @@
     </div>
     <v-col align="center">
       <v-btn
-        class="btnAdd"
+        class="btnAdd font-FC-Palette"
         color="#d72323"
-        background-color="#d72323"
         x-large
         @click="addMenu"
-        :loading="loading"
-        :disabled="loading"
         elevation="10"
         >Add Food</v-btn
       >
@@ -262,38 +259,16 @@ export default {
   box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.25);
   border-radius: 50px;
 }
-/* .v-text-field {
+.textField-format{
   width: 400px;
-} */
-.nameTextField {
-  width: 400px;
-  margin-left: 50px;
-  font-family: Arial, Helvetica, sans-serif;
 }
-.typeTextField {
-  width: 400px;
-  margin-left: 15px;
-  font-family: Arial, Helvetica, sans-serif;
-}
-.grabFieldForm {
-  width: 400px;
-  margin-left: 20px;
-  font-family: Arial, Helvetica, sans-serif;
-}
-.categoryFieldForm {
-  width: 400px;
-  margin-left: 10px;
-  font-family: Arial, Helvetica, sans-serif;
-}
-.imgInput {
-  width: 400px;
+.font-FC-Palette{
+  font-family: "FC Palette";
 }
 .font-form {
   font-family: Arial, Helvetica, sans-serif;
 }
 .btnAdd {
-  /* margin-left: 540px; */
-  font-family: "FC Palette";
   font-size: 20px;
   color: #ffffff;
   box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.25);
