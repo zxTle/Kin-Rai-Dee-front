@@ -1,142 +1,302 @@
 <template>
-   <v-form class="filform">
-         <h1>Add Menu</h1>
+  <v-form class="filform">
+    <div class="border">
+      <h2>Add Menu</h2>
+    </div>
 
-         <label>Name : </label>
-         <v-col class="filname" md="5">
-             <v-text-field  v-model = "add_form.name" outlined clearable></v-text-field>
-         </v-col>
-         <label>Type : </label>
-         <v-col class="filtype" md="5">
-             <v-text-field  v-model = "add_form.type" outlined clearable></v-text-field>
-         </v-col>
-         <label>Category : </label>
-         <v-col class="filcategory" md="5">
-             <v-text-field  v-model = "add_form.category" outlined clearable></v-text-field>
-         </v-col>
-         <label>Grab Link : </label>
-         <v-col class="filgrablink" md="5">
-             <v-text-field  v-model = "add_form.grabLink" outlined clearable></v-text-field>
-         </v-col>
-         <label>Ingredients : </label>
-         <v-col class="filingredients" md="5">
-             <v-textarea  v-model = "add_form.ingredients" outlined clearable></v-textarea>
-         </v-col>
-         <label>How To Cook : </label>
-         <v-col class="filhowto" md="5">
-             <v-textarea  v-model = "add_form.how_to" outlined clearable></v-textarea>
-         </v-col>
-        
-         <v-container fluid> 
-             <label align= "left">Choose image : </label>
-             <v-file-input v-model="image" accept="image/png, image/jpeg ,image/jpg" 
-             label="Choose image (plz click upload before Add)" filled prepend-icon="mdi-camera" @change="onFileChange"></v-file-input>
-             <img :src ="img"/>
-             <v-btn @click="onUpload">Upload</v-btn>
-         </v-container>
+    <div class="format">
+      <div class="d-flex flex-row">
+        <label class="pt-5">Name :</label>
+        <v-col cols="5" sm="5">
+          <v-text-field
+            class="nameTextField"
+            v-model="add_form.name"
+            :rules="[() => !!add_form.name || 'This field is required']"
+            outlined
+            clearable
+            rounded
+            required
+            dense
+          ></v-text-field>
+        </v-col>
+        <div class="mr-10"></div>
+        <label class="pt-5 ml-5">Type : </label>
+        <v-col class="filtype">
+          <v-select
+            class="typeTextField"
+            placeholder="types"
+            :items="type"
+            v-model="add_form.type"
+            :rules="[() => !!add_form.type || 'This field is required']"
+            outlined
+            clearable
+            rounded
+            required
+            dense
+          ></v-select>
+        </v-col>
+      </div>
 
-          <v-btn class= "btnAdd" @click="addMenu" elevation="2">Add</v-btn>
-   </v-form>
+      <div class="d-flex flex-row">
+        <label class="pt-5">Grab Link : </label>
+        <v-col class="filgrablink" md="5">
+          <v-text-field
+            class="grabFieldForm"
+            v-model="add_form.grabLink"
+            :rules="[() => !!add_form.grabLink || 'This field is required']"
+            outlined
+            clearable
+            rounded
+            required
+            dense
+          ></v-text-field>
+        </v-col>
+        <label class="pt-5">Category : </label>
+        <v-col class="filcategory" md="5">
+          <v-select
+            placeholder="category"
+            class="categoryFieldForm"
+            :items="category"
+            v-model="add_form.category"
+            :rules="[() => !!add_form.category || 'This field is required']"
+            outlined
+            clearable
+            rounded
+            required
+            dense
+          ></v-select>
+        </v-col>
+      </div>
+
+      <div class="d-flex flex-row">
+        <label class="pt-3">Ingredients : </label>
+        <v-col class="filingredients" md="5">
+          <v-textarea
+            class="font-form"
+            v-model="add_form.ingredients"
+            :rules="[() => !!add_form.ingredients || 'This field is required']"
+            outlined
+            clearable
+            rounded
+            required
+          ></v-textarea>
+        </v-col>
+      </div>
+
+      <div class="d-flex flex-row">
+        <label class="pt-3">How To Cook : </label>
+        <v-col class="filhowto" md="5">
+          <v-textarea
+            class="font-form"
+            v-model="add_form.how_to"
+            :rules="[() => !!add_form.how_to || 'This field is required']"
+            outlined
+            clearable
+            rounded
+            required
+          ></v-textarea>
+        </v-col>
+      </div>
+
+      <div class="d-flex flex-row">
+        <v-container fluid>
+          <label align="left">Choose image : </label>
+          <v-file-input
+            class="imgInput"
+            required
+            v-model="image"
+            accept="image/png, image/jpeg ,image/jpg"
+            label="Choose image (plz click upload before Add)"
+            filled
+            prepend-icon="mdi-camera"
+            @change="onFileChange"
+          ></v-file-input>
+          <img :src="img" />
+          <!-- <v-btn class="uploadBtn" color="#ffffff" @click="onUpload"
+              >Upload</v-btn
+            > -->
+        </v-container>
+      </div>
+    </div>
+    <v-col align="center">
+      <v-btn
+        class="btnAdd"
+        color="#d72323"
+        background-color="#d72323"
+        x-large
+        @click="addMenu"
+        :loading="loading"
+        :disabled="loading"
+        elevation="10"
+        >Add Food</v-btn
+      >
+    </v-col>
+  </v-form>
 </template>
 
 <script>
 //postข้อมูลที่Vuex ในstore แยกออกเป็นของอาหาร
-import Food from '../store/Foods'
-import { getStorage, ref ,uploadBytes ,getDownloadURL } from "firebase/storage";
-import {initializeApp} from 'firebase/app'
+import Food from "../store/Foods";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { initializeApp } from "firebase/app";
 const firebaseConfig = {
   apiKey: "AIzaSyCqS1mhcPEIkF4Ng_Igq5OygqIve9yXdj0",
   authDomain: "kin-rai-dee-f9ff9.firebaseapp.com",
-  storageBucket: "kin-rai-dee-f9ff9.appspot.com"
+  storageBucket: "kin-rai-dee-f9ff9.appspot.com",
 };
 const firebaseApp = initializeApp(firebaseConfig);
 
 const storage = getStorage(firebaseApp);
 
-
 export default {
-    data(){
-        return {
-            add_form : {
-                name : '',
-                type : '',
-                category : '',
-                grabLink : '',
-                ingredients : '',
-                how_to : '',
-                img_path: '',
-            },
-            food : [],
-            image : [], //เปลี่ยนจาก image:'' เพื่อแก้ error ตรง v-file-input
-            img : ''
-        }
+  data() {
+    return {
+      add_form: {
+        name: "",
+        type: "",
+        category: "",
+        grabLink: "",
+        ingredients: "",
+        how_to: "",
+        img_path: "",
+      },
+      food: [],
+      image: [], //เปลี่ยนจาก image:'' เพื่อแก้ error ตรง v-file-input
+      img: "",
+      type: ["ของคาว", "ของหวาน"],
+      category: [
+        "จีน",
+        "เกาหลี",
+        "อิตาลี",
+        "ไทย",
+        "อินเดีย",
+        "ญี่ปุ่น",
+        "ฝรั่งเศส",
+        "นานาชาติ",
+      ],
+    };
+  },
+  created() {
+    this.fetchFoods();
+  },
+  methods: {
+    onFileChange() {
+      this.createImage(this.image);
+      console.log();
     },
-    created () {
-        this.fetchFoods()
+    createImage(file) {
+      var reader = new FileReader();
+      reader.onload = (e) => {
+        this.img = e.target.result;
+      };
+      reader.readAsDataURL(file);
+      console.log(file);
     },
-    methods : {
-        onFileChange(){
-          this.createImage(this.image)
-          console.log()
-        },
-        createImage(file){
-            var reader = new FileReader();
-            reader.onload=(e)=>{
-                this.img = e.target.result
-            }
-            reader.readAsDataURL(file)
-            console.log(file)
-        },
-        onUpload(){
-            const storageRef = ref(storage,this.image.name)
-            uploadBytes(storageRef, this.image).then((snapshot) => {
-                getDownloadURL(snapshot.ref).then((url) =>{
-                    console.log(url)
-                    //url คือ ลิ้งรูปภาพที่จะเก็บใส่img_path
-                    this.add_form.img_path = url
-                })
-            });
-        },
-        async fetchFoods(){
-            await Food.dispatch('fetchFoods')
-            this.food = Food.getters.foods
-        },
-        clearForm(){
-            this.add_form = {
-                name : '',
-                type : '',
-                category : '',
-                grabLink : '',
-                ingredients : '',
-                how_to : '',
-                img_path: ''
-            }
-            this.image = [], 
-            this.img = ''
-        },
-        addMenu(){
+    onUpload() {
+      const storageRef = ref(storage, this.image.name);
+      uploadBytes(storageRef, this.image).then((snapshot) => {
+        getDownloadURL(snapshot.ref).then((url) => {
+          console.log(url);
+          //url คือ ลิ้งรูปภาพที่จะเก็บใส่img_path
+          this.add_form.img_path = url;
+        });
+      });
+    },
+    async fetchFoods() {
+      await Food.dispatch("fetchFoods");
+      this.food = Food.getters.foods;
+    },
+    clearForm() {
+      this.add_form = {
+        name: "",
+        type: "",
+        category: "",
+        grabLink: "",
+        ingredients: "",
+        how_to: "",
+      };
+      (this.image = []), (this.img = "");
+    },
+    addMenu() {
+      let payload = {
+        name: this.add_form.name,
+        type: this.add_form.type,
+        category: this.add_form.category,
+        grabLink: this.add_form.grabLink,
+        ingredients: this.add_form.ingredients,
+        how_to: this.add_form.how_to,
+        img_path: this.add_form.img_path,
+      };
 
-            let payload = {
-                name : this.add_form.name,
-                type : this.add_form.type,
-                category : this.add_form.category,
-                grabLink : this.add_form.grabLink,
-                ingredients : this.add_form.ingredients,
-                how_to : this.add_form.how_to,
-                img_path : this.add_form.img_path
-            }
-
-            Food.dispatch('AddMenu',payload)
-            console.log(payload.img_path)
-            this.clearForm()
-        }
-  
-      
-    }
-
-}       
+      Food.dispatch("AddMenu", payload);
+      console.log(payload.img_path);
+      this.clearForm();
+    },
+  },
+};
 </script>
 
-<style>
-
+<style scoped lang="css">
+.border {
+  font-family: "FC Palette";
+  font-size: 30px;
+  margin-left: 50px;
+  margin-top: 50px;
+  text-align: center;
+  padding-top: 15px;
+  width: 200px;
+  height: 100px;
+  background: #ffffff;
+  border: 7.75px solid #d72323;
+  border-radius: 100px;
+}
+.format {
+  margin-top: 40px;
+  font-family: "FC Palette";
+  margin-left: 40px;
+  font-size: 22px;
+}
+.uploadBtn {
+  font-family: "FC Palette";
+  color: #000;
+  box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 50px;
+}
+/* .v-text-field {
+  width: 400px;
+} */
+.nameTextField {
+  width: 400px;
+  margin-left: 50px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.typeTextField {
+  width: 400px;
+  margin-left: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.grabFieldForm {
+  width: 400px;
+  margin-left: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.categoryFieldForm {
+  width: 400px;
+  margin-left: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.imgInput {
+  width: 400px;
+}
+.font-form {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.btnAdd {
+  /* margin-left: 540px; */
+  font-family: "FC Palette";
+  font-size: 20px;
+  color: #ffffff;
+  box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 50px;
+}
 </style>
