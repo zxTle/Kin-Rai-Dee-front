@@ -274,4 +274,8 @@ export default {
   box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.25);
   border-radius: 50px;
 }
+.v-text-field{
+  font-family: "supermarket";
+  font-size: 20px;
+}
 </style>

@@ -11,6 +11,7 @@
           <v-text-field
             class="text-field-size mr-3"
             v-model="signup_form.name"
+            :rules="[() => !!signup_form.name || 'กรุณากรอกชื่อ']"
             outlined
             rounded
             dense
@@ -23,6 +24,7 @@
           <v-text-field
             class="text-field-size ml-2"
             v-model="signup_form.surName"
+            :rules="[() => !!signup_form.surName || 'กรุณากรอกนามสกุล']"
             outlined
             rounded
             dense
@@ -37,6 +39,7 @@
             class="text-field-size"
             type="email"
             v-model="signup_form.email"
+            :rules="[() => !!signup_form.email || 'กรุณากรอกอีเมล']"
             outlined
             rounded
             dense
@@ -47,6 +50,7 @@
           <v-text-field
             class="text-field-size"
             v-model="signup_form.username"
+            :rules="[() => !!signup_form.username || 'กรุณาตั้งชื่อผู้ใช้']"
             outlined
             rounded
             dense
@@ -59,11 +63,14 @@
         <v-col class="filepass" md="5">
           <v-text-field
             class="text-field-size300 ml-16"
-            type="password"
             v-model="signup_form.password"
+            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="show1 ? 'text' : 'password'"
+            :rules="rule.checkmin"
             outlined
             rounded
             dense
+            @click:append="show1 = !show1"
           ></v-text-field>
         </v-col>
       </div>
@@ -72,11 +79,14 @@
         <v-col class="filepass" md="5">
           <v-text-field
             class="text-field-size290"
-            type="password"
             v-model="signup_form.cfpass"
+            :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="show2 ? 'text' : 'password'"
+            :rules="rule.checkcf"
             outlined
             rounded
             dense
+            @click:append="show2 = !show2"
           ></v-text-field>
         </v-col>
       </div>
@@ -132,6 +142,12 @@ export default {
       account: [],
       menu: false,
       loading: false,
+      show1 : false,
+      show2 : false,
+      rule :{
+        checkcf :[value => (value == this.signup_form.password) || 'พาสเวิร์ดไม่ตรงกัน'],
+        checkmin : [value => (value && value.length >= 6) || 'ความยาวอย่างน้อย 6 ตัวอักษร']
+      }
     };
   },
   created() {
@@ -157,10 +173,14 @@ export default {
       this.$refs.menu.save(date);
     },
     addFrom() {
-      console.log(this.signup_form.birthDay);
+      console.log(this.checkField())
       if (!this.checkField()) {
-        alert("Can't create account");
-      } else {
+        alert("This email or username already exist");
+      }
+      else if (!this.checkOther()){
+        alert("Please check your password and confirm-password")
+      }
+      else {
         let payload = {
           username: this.signup_form.username,
           name: this.signup_form.name,
@@ -176,23 +196,26 @@ export default {
     },
     checkField() {
       this.account.forEach((acc) => {
-        if (
-          acc.username === this.signup_form.username ||
-          acc.email === this.signup_form.email
-        ) {
-          return false;
+        console.log(acc.username)
+        console.log(this.signup_form.username)
+        if (acc.username == this.signup_form.username || acc.email == this.signup_form.email){
+          console.log("enter")
+          return false
         }
-      });
+      })
+      return true
+    },
+    checkOther(){
       if (this.signup_form.password !== this.signup_form.cfpass) {
-        return false;
+        return false
       }
-      if(this.signup_form.password.length <6 ){
+      else if(this.signup_form.password.length <6 ){
         return false
       } 
       else {
-        return true;
+        return true
       }
-    },
+    }
   },
   computed: {
     formattedDate() {
@@ -242,5 +265,9 @@ export default {
   background: #ffffff;
   border: 7.75px solid #d72323;
   border-radius: 100px;
+}
+.v-text-field{
+  font-family: "supermarket";
+  font-size: 20px;
 }
 </style>
