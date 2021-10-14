@@ -114,6 +114,7 @@
 </template>
 
 <script>
+import firebase from 'firebase'
 import Account from "../store/Accounts";
 import { format, parseISO } from "date-fns";
 export default {
