@@ -201,8 +201,8 @@ export default {
           console.log("enter")
           return false
         }
+        return true
       })
-      return true
     },
     checkOther(){
       if (this.signup_form.password !== this.signup_form.cfpass) {
