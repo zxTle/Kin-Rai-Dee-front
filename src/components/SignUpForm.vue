@@ -172,9 +172,14 @@ export default {
       this.$refs.menu.save(date);
     },
     addFrom() {
+      console.log(this.checkField())
       if (!this.checkField()) {
-        alert("Can't create account");
-      } else {
+        alert("This email or username already exist");
+      }
+      else if (!this.checkOther()){
+        alert("Please check your password and confirm-password")
+      }
+      else {
         let payload = {
           username: this.signup_form.username,
           name: this.signup_form.name,
@@ -190,22 +195,26 @@ export default {
     },
     checkField() {
       this.account.forEach((acc) => {
-        console.log(acc.email)
-        console.log(this.signup_form.email)
-        if (acc.username == this.signup_form.username || acc.email == this.signup_form.email) {
-          return false;
+        console.log(acc.username)
+        console.log(this.signup_form.username)
+        if (acc.username == this.signup_form.username || acc.email == this.signup_form.email){
+          console.log("enter")
+          return false
         }
-        });
+      })
+      return true
+    },
+    checkOther(){
       if (this.signup_form.password !== this.signup_form.cfpass) {
-        return false;
+        return false
       }
-      if(this.signup_form.password.length <6 ){
+      else if(this.signup_form.password.length <6 ){
         return false
       } 
       else {
-        return true;
+        return true
       }
-    },
+    }
   },
   computed: {
     formattedDate() {
