@@ -34,7 +34,7 @@
             <v-list-item-title class="random-btn">สุ่มอาหาร</v-list-item-title>
             </v-list-item>
 
-            <v-list-item>
+            <v-list-item to=/login>
             <v-list-item-title class="signin-btn">เข้าสู่ระบบ</v-list-item-title>
             </v-list-item>
 

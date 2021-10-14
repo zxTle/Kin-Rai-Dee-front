@@ -6,15 +6,6 @@ import store from './store'
 import VueAxios from 'vue-axios'
 import axios from 'axios'
 
-
-<<<<<<< HEAD
-=======
-
-
-
-
-
->>>>>>> develop
 Vue.use(VueAxios,axios)
 Vue.config.productionTip = false
 
