@@ -11,7 +11,7 @@
           <v-text-field
             class="textField-format font-form ml-13"
             v-model="add_form.name"
-            :rules="[() => !!add_form.name || 'กรุญากรอกข้อมูล']"
+            :rules="[() => !!add_form.name || 'กรุณากรอกข้อมูล']"
             outlined
             clearable
             rounded
@@ -27,7 +27,7 @@
             placeholder="types"
             :items="type"
             v-model="add_form.type"
-            :rules="[() => !!add_form.type || 'กรุญากรอกข้อมูล']"
+            :rules="[() => !!add_form.type || 'กรุณากรอกข้อมูล']"
             outlined
             clearable
             rounded
@@ -43,7 +43,7 @@
           <v-text-field
             class="textField-format font-form ml-4"
             v-model="add_form.grabLink"
-            :rules="[() => !!add_form.grabLink || 'กรุญากรอกข้อมูล']"
+            :rules="[() => !!add_form.grabLink || 'กรุณากรอกข้อมูล']"
             outlined
             clearable
             rounded
@@ -58,7 +58,7 @@
             class="textField-format font-form ml-1"
             :items="category"
             v-model="add_form.category"
-            :rules="[() => !!add_form.category || 'กรุญากรอกข้อมูล']"
+            :rules="[() => !!add_form.category || 'กรุณากรอกข้อมูล']"
             outlined
             clearable
             rounded
@@ -74,7 +74,7 @@
           <v-textarea
             class="font-form"
             v-model="add_form.ingredients"
-            :rules="[() => !!add_form.ingredients || 'กรุญากรอกข้อมูล']"
+            :rules="[() => !!add_form.ingredients || 'กรุณากรอกข้อมูล']"
             outlined
             clearable
             rounded
@@ -89,7 +89,7 @@
           <v-textarea
             class="font-form"
             v-model="add_form.how_to"
-            :rules="[() => !!add_form.how_to || 'กรุญากรอกข้อมูล']"
+            :rules="[() => !!add_form.how_to || 'กรุณากรอกข้อมูล']"
             outlined
             clearable
             rounded
