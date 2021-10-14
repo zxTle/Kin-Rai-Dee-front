@@ -8,6 +8,7 @@ import Random from "@/views/Random.vue"
 //import Logout from '@/views/auth/Logout.vue'
 import Admin from '@/views/Admin.vue'
 
+
 Vue.use(VueRouter)
 
 const routes = [
