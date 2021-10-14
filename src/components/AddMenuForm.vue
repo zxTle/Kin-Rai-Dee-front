@@ -32,7 +32,7 @@
              <v-file-input v-model="image" accept="image/png, image/jpeg ,image/jpg" 
              label="Choose image (plz click upload before Add)" filled prepend-icon="mdi-camera" @change="onFileChange"></v-file-input>
              <img :src ="img"/>
-             <v-btn @click="onUpload">Upload</v-btn>
+            <!-- <v-btn @click="onUpload">Upload</v-btn> -->
          </v-container>
 
           <v-btn class= "btnAdd" @click="addMenu" elevation="2">Add</v-btn>
@@ -87,16 +87,16 @@ export default {
             reader.readAsDataURL(file)
             console.log(file)
         },
-        onUpload(){
-            const storageRef = ref(storage,this.image.name)
-            uploadBytes(storageRef, this.image).then((snapshot) => {
-                getDownloadURL(snapshot.ref).then((url) =>{
-                    console.log(url)
-                    //url คือ ลิ้งรูปภาพที่จะเก็บใส่img_path
-                    this.add_form.img_path = url
-                })
-            });
-        },
+      //  onUpload(){
+     //       const storageRef = ref(storage,this.image.name)
+      //      uploadBytes(storageRef, this.image).then((snapshot) => {
+      //          getDownloadURL(snapshot.ref).then((url) =>{
+       //             console.log(url)
+         //           //url คือ ลิ้งรูปภาพที่จะเก็บใส่img_path
+         //           this.add_form.img_path = url
+           //     })
+         //   });
+        //},
         async fetchFoods(){
             await Food.dispatch('fetchFoods')
             this.food = Food.getters.foods
@@ -109,29 +109,41 @@ export default {
                 grabLink : '',
                 ingredients : '',
                 how_to : '',
-                img_path: ''
             }
             this.image = [], 
             this.img = ''
         },
         addMenu(){
+            let check = true
+            this.food.forEach( (foods,index) => {
+                console.log(foods.name,index)
+                if(foods.name == this.add_form.name) {
+                    check = false }
+                    }) 
+            if (check == false) { alert("Name is Duplicate") }
+            if (check == true) { 
+                // เพื่อ upload ภาพ รวมกับ add menu ทีเดียว 
+                const storageRef = ref(storage, this.image.name);
+                uploadBytes(storageRef, this.image).then((snapshot) => {
+                getDownloadURL(snapshot.ref).then((url) => {
+                    console.log(url);
+                    this.add_form.img_path = url;
 
-            let payload = {
-                name : this.add_form.name,
-                type : this.add_form.type,
-                category : this.add_form.category,
-                grabLink : this.add_form.grabLink,
-                ingredients : this.add_form.ingredients,
-                how_to : this.add_form.how_to,
-                img_path : this.add_form.img_path
+                    let payload = {
+                        name: this.add_form.name,
+                        type: this.add_form.type,
+                        category: this.add_form.category,
+                        grabLink: this.add_form.grabLink,
+                        ingredients: this.add_form.ingredients,
+                        how_to: this.add_form.how_to,
+                        img_path: this.add_form.img_path,
+                    };
+                    Food.dispatch("AddMenu", payload);
+                    this.clearForm(); 
+                });
+                });
             }
-
-            Food.dispatch('AddMenu',payload)
-            console.log(payload.img_path)
-            this.clearForm()
         }
-  
-      
     }
 
 }       
