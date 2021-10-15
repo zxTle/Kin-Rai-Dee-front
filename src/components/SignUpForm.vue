@@ -172,8 +172,10 @@ export default {
       this.$refs.menu.save(date);
     },
     addFrom() {
-      console.log(this.checkField())
-      if (this.checkField()) {
+      if (!this.checkNull()) {
+        alert("Please complete the form");
+      }
+      else if (this.checkField()) {
         alert("This email or username already exist");
       }
       else if (!this.checkOther()){
@@ -206,7 +208,22 @@ export default {
       else {
         return true
       }
-    }
+    },
+    checkNull() {
+      if (
+        this.signup_form.username === "" ||
+        this.signup_form.name === "" ||
+        this.signup_form.surName === "" ||
+        this.signup_form.email === "" ||
+        this.signup_form.password === ""||
+        this.signup_form.cfpass === "" ||
+        this.signup_form.birthDay === null
+      ) {
+        return false;
+      } else {
+        return true;
+      }
+    },
   },
   computed: {
     formattedDate() {
