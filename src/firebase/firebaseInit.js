@@ -1,4 +1,7 @@
-export default {
+import firebase from 'firebase/app'
+import "firebase/firestore"
+
+var firebaseConfig = {
     apiKey: "AIzaSyCqS1mhcPEIkF4Ng_Igq5OygqIve9yXdj0",
     authDomain: "kin-rai-dee-f9ff9.firebaseapp.com",
     projectId: "kin-rai-dee-f9ff9",
@@ -6,4 +9,10 @@ export default {
     messagingSenderId: "540078705489",
     appId: "1:540078705489:web:40833b2ca48cf384836170",
     measurementId: "G-H068DBVBNX"
-  };
+};
+
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+const timestamp = firebase.firestore.FieldValue.serverTimestamp;
+
+export {timestamp};
+export default firebaseApp.firestore();

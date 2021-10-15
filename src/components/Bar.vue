@@ -34,12 +34,20 @@
             <v-list-item-title class="random-btn">สุ่มอาหาร</v-list-item-title>
             </v-list-item>
 
-            <v-list-item to=/login>
+            <v-list-item to=/login  v-if="!isLoggedIn">
             <v-list-item-title class="signin-btn">เข้าสู่ระบบ</v-list-item-title>
             </v-list-item>
 
-            <v-list-item to="/signup">
+            <v-list-item to="/signup"  v-if="!isLoggedIn">
             <v-list-item-title class="signup-btn">สมัครสมาชิก</v-list-item-title>
+            </v-list-item>
+
+            <v-list-item to="/admin" v-if="isLoggedIn">
+            <v-list-item-title class="signup-btn">เพิ่มอาหาร</v-list-item-title>
+            </v-list-item>
+            
+            <v-list-item v-if="isLoggedIn">
+            <v-list-item-title @click="logOut" class="signup-btn">ออกจากระบบ</v-list-item-title>
             </v-list-item>
         </v-list-item-group>
         </v-list>
@@ -48,12 +56,29 @@
 </template>
 
 <script>
+import {getAuth} from 'firebase/auth'
+
 export default {
     name : 'Bar',
     data() {
       return {
         drawer :false,
-      
+        isLoggedIn : false,
+        currentUser : false,
+      }
+    },
+    created(){
+      if(getAuth().currentUser){
+        this.isLoggedIn = true,
+        this.currentUser = getAuth().currentUser.email;
+      }
+    },
+    methods :{
+      logOut(){
+        getAuth().signOut().then(() =>{
+          this.$router.push('/');
+        }
+        )
       }
     }
 }

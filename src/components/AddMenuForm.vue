@@ -142,7 +142,6 @@ const firebaseConfig = {
   storageBucket: "kin-rai-dee-f9ff9.appspot.com",
 };
 const firebaseApp = initializeApp(firebaseConfig);
-
 const storage = getStorage(firebaseApp);
 
 export default {

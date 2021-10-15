@@ -1,28 +1,17 @@
 <template>
-  <div>
-
-    <h1>Login</h1>
-    <v-form>
-    <div class="input field">
-      <label>Email</label>
-      <v-col>
-        <v-text-field v-model="email"></v-text-field>
-      </v-col>
-    </div>
-
-    <div class="input-field">
-        <label>Password</label>
-        <v-text-field v-model="password"></v-text-field>
-    </div>
+  <div class="form-wrap">
+    <v-form class="login">
+      <h2>Log in</h2>
+      <v-text-field v-model="email"></v-text-field>
+      <v-text-field v-model="password"></v-text-field>
+      <v-btn @click="login">sign in</v-btn>
     </v-form>
-
-
-    <v-btn v-on:click="login" class="btn btn-large">Login</v-btn>
   </div>
 </template>
 
 <script>
-import firebase from 'firebase'
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
 export default {
     name: 'login',
     data: function(){
@@ -32,14 +21,17 @@ export default {
         };
     },
     methods:{
-      login: function(e){
-        firebase
-          .auth()
-          .signInWithEmailAndPassword(this.email,this.password)
-          .then(
-            // user => {
-
-            // }
+      login (){
+        const auth = getAuth();
+        signInWithEmailAndPassword(auth,this.email,this.password)
+          .then((userCredential)=> {
+            const user = userCredential.user
+            console.log(user.uid)
+            this.$router.push("/");
+          })
+          .catch((err)=>{
+            console.log(err)
+          }
           )
       }
     }
