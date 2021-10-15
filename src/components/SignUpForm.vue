@@ -173,7 +173,7 @@ export default {
     },
     addFrom() {
       console.log(this.checkField())
-      if (!this.checkField()) {
+      if (this.checkField()) {
         alert("This email or username already exist");
       }
       else if (!this.checkOther()){
@@ -194,15 +194,7 @@ export default {
       }
     },
     checkField() {
-      this.account.forEach((acc) => {
-        console.log(acc.username)
-        console.log(this.signup_form.username)
-        if (acc.username == this.signup_form.username || acc.email == this.signup_form.email){
-          console.log("enter")
-          return false
-        }
-        return true
-      })
+      return this.account.some((acc)=> acc.username == this.signup_form.username || acc.email == this.signup_form.email)
     },
     checkOther(){
       if (this.signup_form.password !== this.signup_form.cfpass) {
