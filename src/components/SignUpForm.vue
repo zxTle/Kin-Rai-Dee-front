@@ -192,7 +192,9 @@ export default {
           birthDay: this.signup_form.birthDay,
         };
         Account.dispatch("signupAccount", payload);
+        alert("create account success");
         this.clearForm();
+        this.$router.push("/");
       }
     },
     checkField() {
