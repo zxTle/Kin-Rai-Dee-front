@@ -75,7 +75,9 @@
         </v-col>
       </div>
       <div class="d-flex flex-row">
-        <label class="font-FC-Palette font-size pt-5 ml-5">Confirm passsword :</label>
+        <label class="font-FC-Palette font-size pt-5 ml-5"
+          >Confirm passsword :</label
+        >
         <v-col class="filepass" md="5">
           <v-text-field
             class="text-field-size290"
@@ -141,12 +143,17 @@ export default {
       account: [],
       menu: false,
       loading: false,
-      show1 : false,
-      show2 : false,
-      rule :{
-        checkcf :[value => (value == this.signup_form.password) || 'พาสเวิร์ดไม่ตรงกัน'],
-        checkmin : [value => (value && value.length >= 6) || 'ความยาวอย่างน้อย 6 ตัวอักษร']
-      }
+      show1: false,
+      show2: false,
+      rule: {
+        checkcf: [
+          (value) => value == this.signup_form.password || "พาสเวิร์ดไม่ตรงกัน",
+        ],
+        checkmin: [
+          (value) =>
+            (value && value.length >= 6) || "ความยาวอย่างน้อย 6 ตัวอักษร",
+        ],
+      },
     };
   },
   created() {
@@ -172,16 +179,15 @@ export default {
       this.$refs.menu.save(date);
     },
     addFrom() {
+      console.log(this.checkField());
+
       if (!this.checkNull()) {
         alert("Please complete the form");
-      }
-      else if (this.checkField()) {
+      } else if (!this.checkField()) {
         alert("This email or username already exist");
-      }
-      else if (!this.checkOther()){
-        alert("Please check your password and confirm-password")
-      }
-      else {
+      } else if (!this.checkOther()) {
+        alert("Please check your password and confirm-password");
+      } else {
         let payload = {
           username: this.signup_form.username,
           name: this.signup_form.name,
@@ -192,21 +198,32 @@ export default {
           birthDay: this.signup_form.birthDay,
         };
         Account.dispatch("signupAccount", payload);
+        alert("create account success");
         this.clearForm();
+        this.$router.push("/");
       }
     },
     checkField() {
-      return this.account.some((acc)=> acc.username == this.signup_form.username || acc.email == this.signup_form.email)
+      this.account.forEach((acc) => {
+        console.log(acc.username);
+        console.log(this.signup_form.username);
+        if (
+          acc.username == this.signup_form.username ||
+          acc.email == this.signup_form.email
+        ) {
+          console.log("enter");
+          return false;
+        }
+      });
+      return true;
     },
-    checkOther(){
+    checkOther() {
       if (this.signup_form.password !== this.signup_form.cfpass) {
-        return false
-      }
-      else if(this.signup_form.password.length <6 ){
-        return false
-      } 
-      else {
-        return true
+        return false;
+      } else if (this.signup_form.password.length < 6) {
+        return false;
+      } else {
+        return true;
       }
     },
     checkNull() {
@@ -236,10 +253,10 @@ export default {
 </script>
 
 <style scoped lang="css">
-.text-field-size290{
+.text-field-size290 {
   width: 290px;
 }
-.text-field-size300{
+.text-field-size300 {
   width: 300px;
 }
 .text-field-size {
@@ -274,7 +291,7 @@ export default {
   border: 7.75px solid #d72323;
   border-radius: 100px;
 }
-.v-text-field{
+.v-text-field {
   font-family: "supermarket";
   font-size: 20px;
 }

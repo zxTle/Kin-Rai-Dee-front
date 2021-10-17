@@ -11,13 +11,14 @@
     
   </div>
   
-  <div>
+  <!-- <div>
     <v-container class="btn">
-      <v-btn  elevation="2" to="/signup">Signup</v-btn>
-      <router-link to ="/test">Test</router-link>
-      <router-link to = "/admin">Admin</router-link>
+      <v-btn  elevation="2" to="/signup">Signup</v-btn> |
+      <router-link to ="/test">Test</router-link> |
+      <router-link to = "/admin">Admin</router-link> |
+      <router-link to = "/login">Login</router-link> |
     </v-container>
-  </div>
+  </div> -->
 </div>
 
 </template>
