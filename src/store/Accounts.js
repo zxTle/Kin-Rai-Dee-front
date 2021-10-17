@@ -16,12 +16,15 @@ export default new Vuex.Store({
               email : '',
               name : '',
               surName : '',
-              birthDay : ''
+              birthDay : '',
+              roles : ''
           }
-      ]  
+      ],
+      accData : {}
   },
   getters:{
-      accounts : (state) => state.data  // getค่าออกมา user คือkeyword เวลาเราจะเรียกค่าไปใช้ ส่งparameter state | ตัว arrow => คือreturn
+      accounts : (state) => state.data,  // getค่าออกมา user คือkeyword เวลาเราจะเรียกค่าไปใช้ ส่งparameter state | ตัว arrow => คือreturn
+      accountData : (state) => state.accData
   },
   mutations: {
       fetch(state, {acc}){
@@ -29,7 +32,11 @@ export default new Vuex.Store({
       },
       addAccount(state,signup){
           state.data.push(signup)
+      },
+      getAccountData(state,acc){
+          state.accData = acc.data
       }
+
   },
   actions: {
       async fetchAccount({commit}){
@@ -39,6 +46,10 @@ export default new Vuex.Store({
       async signupAccount({commit},account){
           let acc = await axios.post(api,account)
           commit('addAccount',acc)
+      },
+      async getAccData({commit},uid){
+          let acc = await axios.get(api+"/"+uid)
+          commit('getAccountData',acc)
       }
   },
   modules: {

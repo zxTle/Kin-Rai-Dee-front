@@ -59,6 +59,7 @@
 
 <script>
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+//import Account from '../store/Accounts'
 
 export default {
   name: "login",
@@ -67,6 +68,7 @@ export default {
       email: "",
       password: "",
       show: false,
+      accountData : {}
     };
   },
   methods: {
@@ -75,13 +77,20 @@ export default {
       signInWithEmailAndPassword(auth, this.email, this.password)
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log(user.uid);
+          console.log(user);
+          //this.getAccountData(user.uid) // ข้อมูลไม่ขึ้นในนี้เพราะว่าไม่ได้รอเรียกใช้ methodเสร็จ ข้อมูลเลยไม่ขึ้น
           this.$router.push("/");
         })
         .catch((err) => {
           console.log(err);
         });
     },
+    // async getAccountData(uid){
+    //   console.log("enter")
+    //   await Account.dispatch("getAccData",uid);
+    //   this.accountData = Account.getters.accountData
+    //   this.$router.push("/");
+    // },
   },
 };
 </script>
