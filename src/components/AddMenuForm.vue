@@ -131,6 +131,7 @@
   </v-form>
 </template>
 
+
 <script>
 //postข้อมูลที่Vuex ในstore แยกออกเป็นของอาหาร
 import Food from "../store/Foods";
@@ -143,7 +144,6 @@ const firebaseConfig = {
 };
 const firebaseApp = initializeApp(firebaseConfig);
 const storage = getStorage(firebaseApp);
-
 export default {
   data() {
     return {
@@ -172,64 +172,81 @@ export default {
       ],
     };
   },
-  created() {
-    this.fetchFoods();
-  },
-  methods: {
-    onFileChange() {
-      this.createImage(this.image);
-      console.log();
+    created () {
+        this.fetchFoods()
     },
-    createImage(file) {
-      var reader = new FileReader();
-      reader.onload = (e) => {
-        this.img = e.target.result;
-      };
-      reader.readAsDataURL(file);
-      console.log(file);
-    },
-    onUpload() {
-      const storageRef = ref(storage, this.image.name);
-      uploadBytes(storageRef, this.image).then((snapshot) => {
-        getDownloadURL(snapshot.ref).then((url) => {
-          console.log(url);
-          //url คือ ลิ้งรูปภาพที่จะเก็บใส่img_path
-          this.add_form.img_path = url;
-        });
-      });
-    },
-    async fetchFoods() {
-      await Food.dispatch("fetchFoods");
-      this.food = Food.getters.foods;
-    },
-    clearForm() {
-      this.add_form = {
-        name: "",
-        type: "",
-        category: "",
-        grabLink: "",
-        ingredients: "",
-        how_to: "",
-      };
-      (this.image = []), (this.img = "");
-    },
-    addMenu() {
-      let payload = {
-        name: this.add_form.name,
-        type: this.add_form.type,
-        category: this.add_form.category,
-        grabLink: this.add_form.grabLink,
-        ingredients: this.add_form.ingredients,
-        how_to: this.add_form.how_to,
-        img_path: this.add_form.img_path,
-      };
+    methods : {
+        onFileChange(){
+            this.createImage(this.image)
+            console.log()
+        },
+        createImage(file){
+            var reader = new FileReader();
+            reader.onload=(e)=>{
+                this.img = e.target.result
+            }
+            reader.readAsDataURL(file)
+            console.log(file)
+        },
+        //  onUpload(){
+        //       const storageRef = ref(storage,this.image.name)
+        //      uploadBytes(storageRef, this.image).then((snapshot) => {
+        //          getDownloadURL(snapshot.ref).then((url) =>{
+        //             console.log(url)
+            //           //url คือ ลิ้งรูปภาพที่จะเก็บใส่img_path
+            //           this.add_form.img_path = url
+            //     })
+            //   });
+        //},
+        async fetchFoods(){
+            await Food.dispatch('fetchFoods')
+            this.food = Food.getters.foods
+        },
+        clearForm(){
+            this.add_form = {
+                name : '',
+                type : '',
+                category : '',
+                grabLink : '',
+                ingredients : '',
+                how_to : '',
+            }
+            this.image = [], 
+            this.img = ''
+        },
+        addMenu(){
+            let check = true
+            this.food.forEach( (foods,index) => {
+                console.log(foods.name,index)
+                if(foods.name == this.add_form.name) {
+                    check = false }
+                    }) 
+            if (check == false) { alert("Name is Duplicate") }
+            if (check == true) { 
+                // เพื่อ upload ภาพ รวมกับ add menu ทีเดียว 
+                const storageRef = ref(storage, this.image.name);
+                uploadBytes(storageRef, this.image).then((snapshot) => {
+                getDownloadURL(snapshot.ref).then((url) => {
+                    console.log(url);
+                    this.add_form.img_path = url;
 
-      Food.dispatch("AddMenu", payload);
-      console.log(payload.img_path);
-      this.clearForm();
-    },
-  },
-};
+                    let payload = {
+                        name: this.add_form.name,
+                        type: this.add_form.type,
+                        category: this.add_form.category,
+                        grabLink: this.add_form.grabLink,
+                        ingredients: this.add_form.ingredients,
+                        how_to: this.add_form.how_to,
+                        img_path: this.add_form.img_path,
+                    };
+                    Food.dispatch("AddMenu", payload);
+                    this.clearForm(); 
+                });
+                });
+            }
+        }
+    }
+}       
 </script>
 
 <style scoped lang="css">

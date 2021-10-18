@@ -30,7 +30,7 @@
             <v-list-item-title class="home-btn">หน้าหลัก</v-list-item-title>
             </v-list-item>
 
-            <v-list-item to="/random">
+            <v-list-item to="/random" >
             <v-list-item-title class="random-btn">สุ่มอาหาร</v-list-item-title>
             </v-list-item>
 
@@ -42,12 +42,16 @@
             <v-list-item-title class="signup-btn">สมัครสมาชิก</v-list-item-title>
             </v-list-item>
 
-            <v-list-item to="/admin" v-if="isLoggedIn">
+            <v-list-item to="/admin" v-if="isLoggedIn && isAdmin">
             <v-list-item-title class="signup-btn">เพิ่มอาหาร</v-list-item-title>
+            </v-list-item>
+
+            <v-list-item to="/profile" v-if="isLoggedIn">
+            <v-list-item-title class="signup-btn">ข้อมูลส่วนตัว</v-list-item-title>
             </v-list-item>
             
             <v-list-item v-if="isLoggedIn">
-            <v-list-item-title @click="logOut" class="signup-btn">ออกจากระบบ</v-list-item-title>
+            <v-list-item-title @click="logOut"  class="signup-btn">ออกจากระบบ</v-list-item-title>
             </v-list-item>
         </v-list-item-group>
         </v-list>
@@ -56,32 +60,57 @@
 </template>
 
 <script>
-import {getAuth} from 'firebase/auth'
+import { getAuth } from "firebase/auth";
+import Account from "../store/Accounts";
 
 export default {
-    name : 'Bar',
-    data() {
-      return {
-        drawer :false,
-        isLoggedIn : false,
-        currentUser : false,
-      }
-    },
-    created(){
-      if(getAuth().currentUser){
-        this.isLoggedIn = true,
-        this.currentUser = getAuth().currentUser.email;
-      }
-    },
-    methods :{
-      logOut(){
-        getAuth().signOut().then(() =>{
-          this.$router.push('/');
-        }
-        )
-      }
+  name: "Bar",
+  data() {
+    return {
+      drawer: false,
+      isLoggedIn: false,
+      currentUser: false,
+      isAdmin: false,
+      accountData: {},
+    };
+  },
+  created() {
+    if (getAuth().currentUser) {
+      (this.isLoggedIn = true),
+        (this.currentUser = getAuth().currentUser.email);
+      this.getAccount(getAuth().currentUser.uid);
     }
-}
+  },
+  methods: {
+    logOut() {
+      getAuth()
+        .signOut()
+        .then(() => {
+          if (this.$router.currentRoute.path != "/") {
+            this.$router.push("/");
+          } else {
+            location.reload();
+          }
+        });
+    },
+    checkRoles() {
+      if (this.accountData.roles === "admin") {
+        this.isAdmin = true;
+      } else {
+        this.isAdmin = false;
+      }
+    },
+    async getAccount(uid) {
+      await Account.dispatch("getAccData", uid);
+      this.accountData = Account.getters.accountData;
+      //check ข้อูลuser ในนี้แล้วจะขึ้น แต่ถ้าใน created หลังบรรทัด76 จะไม่ขึ้นเพราะยังทำฟังก์ชันนี้ไม่เสร็จ
+      console.log(this.accountData.name);
+      // console.log(this.accountData.roles);
+      // console.log(this.checkRoles())
+      this.checkRoles();
+    },
+  },
+};
 </script>
 
 <style scoped lang="css" src = "../assets/style.css"></style>
