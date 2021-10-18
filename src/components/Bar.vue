@@ -79,7 +79,12 @@ export default {
     methods :{
       logOut(){
         getAuth().signOut().then(() =>{
-          this.$router.push("/");
+          if(this.$router.currentRoute.path != "/"){
+            this.$router.push("/");
+          }
+          else {
+            location.reload()
+          }
         }
         )
       },
