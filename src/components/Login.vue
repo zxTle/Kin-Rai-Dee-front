@@ -2,7 +2,7 @@
   <div class="form-wrap">
     <v-form class="login">
       <v-col align="center">
-      <h2 class="font-FC-Palette border mt-5">Sign in</h2>
+        <h2 class="font-FC-Palette border mt-5">Sign in</h2>
       </v-col>
       <v-col>
         <v-col>
@@ -11,7 +11,7 @@
               <i class="material-icons prefix icon-size">email</i>
               <!-- <label class="pt-2 font-FC-Palette font-size">Email: </label> -->
               <v-text-field
-              placeholder="email"
+                placeholder="email"
                 class="ml-5"
                 v-model="email"
                 outlined
@@ -22,21 +22,21 @@
           </v-col>
           <div>
             <v-col align="center">
-            <div class="d-flex flex-row widht-text-field">
-              <i class="material-icons prefix icon-size">lock</i>
-              <!-- <label class="pt-2 font-FC-Palette font-size">Passsword :</label> -->
-              <v-text-field
-              class="ml-5"
-              placeholder="password"
-                v-model="password"
-                :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="show ? 'text' : 'password'"
-                @click:append="show = !show"
-                outlined
-                rounded
-                dense
-              ></v-text-field>
-            </div>
+              <div class="d-flex flex-row widht-text-field">
+                <i class="material-icons prefix icon-size">lock</i>
+                <!-- <label class="pt-2 font-FC-Palette font-size">Passsword :</label> -->
+                <v-text-field
+                  class="ml-5"
+                  placeholder="password"
+                  v-model="password"
+                  :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+                  :type="show ? 'text' : 'password'"
+                  @click:append="show = !show"
+                  outlined
+                  rounded
+                  dense
+                ></v-text-field>
+              </div>
             </v-col>
           </div>
         </v-col>
@@ -59,6 +59,7 @@
 
 <script>
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import Accout from "../store/Accounts";
 
 export default {
   name: "login",
@@ -67,6 +68,16 @@ export default {
       email: "",
       password: "",
       show: false,
+      accData: {
+        userId: "",
+        username: "",
+        password: "",
+        email: "",
+        name: "",
+        surName: "",
+        birthDay: "",
+        roles: "",
+      },
     };
   },
   methods: {
@@ -75,13 +86,19 @@ export default {
       signInWithEmailAndPassword(auth, this.email, this.password)
         .then((userCredential) => {
           const user = userCredential.user;
+          this.getAccountData(user.uid)
           console.log(user.uid);
+          console.log(this.accData.username);
           this.$router.push("/");
         })
         .catch((err) => {
           console.log(err);
         });
     },
+    async getAccountData(uid){
+      await Accout.dispatch("getAccount",uid)
+      this.accData = Accout.getters.accountData
+    }
   },
 };
 </script>
@@ -114,7 +131,7 @@ export default {
 .font-size {
   font-size: 22px;
 }
-.icon-size{
+.icon-size {
   font-size: 40px;
   color: #686868;
 }
