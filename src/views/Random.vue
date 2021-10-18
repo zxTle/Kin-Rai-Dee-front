@@ -21,7 +21,7 @@
       <v-card-text class="text-center ">
         <h2>อาหารที่สุ่มได้</h2>
       </v-card-text>
-      <h1 class="result_text">สปาเกตตี้</h1>
+      <h1 class="result_text">{{chosenFood}}</h1>
       </v-card>
       <div class="random_btn">
         <v-btn 
@@ -30,6 +30,7 @@
         outlined
         rounded
         x-large
+        @click="picker"
       >
       <span class="material-icons">casino</span>
       random</v-btn>
@@ -40,9 +41,31 @@
 </template>
 
 <script>
+import FoodStore from '@/store/Foods'
 import Bar from '../components/Bar.vue'
   export default {
-  components: { Bar }
+  components: { Bar },
+  data() {
+    return {
+      foods: [],
+      chosenFood: ''
+    }
+  },
+  created(){
+    this.fetchFoods()
+  },
+  methods: {
+    async fetchFoods() {
+      await FoodStore.dispatch('fetchFoods')
+
+      this.foods = FoodStore.getters.foods
+    },
+    picker(){
+      var numIndex = Math.floor(Math.random() * this.foods.length)
+      console.log('numIndex',numIndex)
+      this.chosenFood = this.foods[numIndex].name
+    }
+  }
   }
 </script>
 
