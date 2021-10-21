@@ -1,7 +1,9 @@
 <template>
   <div class="food-result" align= "center">
       <v-card class="pic">
-        <img :src = "food.img_path"/>
+          <v-img :src ="food.img_path"
+          :aspect-ratio="16/9"></v-img>
+        <!-- <img :src = "food.img_path"/> -->
       </v-card>
       
       
