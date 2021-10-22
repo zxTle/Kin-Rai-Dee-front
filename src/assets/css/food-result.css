@@ -4,7 +4,9 @@
 }
 .pic{
     position: absolute;
-    margin-left: 50px;
-    width: 760px;
-    height: 507px;
+    margin-left: 60px;
+    border-radius: 50px;
+    width: 525px;
+    height: 315px;
 }
+
