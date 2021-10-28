@@ -37,7 +37,8 @@
       </div>
     </div>
   </v-sheet>
-  <food-result :food="this.chosenFood"></food-result>
+  <food-result v-if="this.chosenFood.ingredients!=null" :food="this.chosenFood" :isRandom="true"></food-result>
+  <h1 v-else>dsda</h1>
 </div>
 </template>
 
@@ -64,6 +65,7 @@ import FoodResult from '../components/FoodResult.vue'
       this.foods = FoodStore.getters.foods
     },
     picker(){
+      this.chosenFood=null
       var numIndex = Math.floor(Math.random() * this.foods.length)
       console.log('numIndex',numIndex)
       this.chosenFood = this.foods[numIndex]
