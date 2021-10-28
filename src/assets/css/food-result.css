@@ -1,0 +1,97 @@
+.food-result{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.pic{
+    position: absolute;
+    margin-left: 60px;
+    border-radius: 50px;
+    width: 525px;
+    height: 315px;
+}
+.ingd{
+    padding-top: 15px;
+    font-family: "FC Palette";
+    font-size: 40px;
+    color: white;
+}
+.ingdList{
+    margin-left: 520px;
+    margin-top: 15px;
+}
+.igd{
+    margin-top: 7px;
+    border-width: 5px;
+    border-color: #C50000;
+}
+.igd_text{
+    font-family: "supermarket";
+    font-size: 25px;
+    text-align: left;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.howto{
+    margin-top: 70px;
+    margin-left: -1100px;
+    padding-top: 10px;
+    font-size: 40px;
+    font-family: "FC Palette";
+    font-size: 40px;
+    color: white;
+}
+.howList{
+    margin-left: -420px;
+    margin-top: 15px;
+}
+.how_text{
+    font-family: "supermarket";
+    font-size: 25px;
+    text-align: left;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.how{
+    margin-top: 7px;
+    border-width: 5px;
+    border-color: #C50000;
+}
+
+.imgic{
+    margin-left: -35px;
+}
+
+.grab-btn{
+    position: absolute;
+    margin-left: -550px;
+    margin-top: 350px;
+    font-family: "supermarket";
+    font-size: 30px;
+    color: white;
+    padding-right: 10px;
+}
+
+.btn-text{
+    margin: auto;
+    padding-right: 15px;
+}
+
+.like-btn{
+    position: absolute;
+    margin-left: -550px;
+    margin-top: 420px;
+    font-family: "supermarket";
+    font-size: 30px;
+    color: white;
+    padding-right: 10px;
+}
+.name-food{
+    text-align: center;
+    border-width: 5px;
+    border-color: #C50000;
+    padding-top: 1.5px;
+    font-family: "FC Palette";
+    font-size: 25px;
+    margin-left: 60px;
+}
