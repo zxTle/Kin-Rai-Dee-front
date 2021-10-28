@@ -8,7 +8,7 @@
       </v-icon>
       <p class="kinrai">วันนี้กินอะไรดีน้า</p>
     </v-btn>
-    
+    <recommend></recommend>
   </div>
   
   <!-- <div>
@@ -25,8 +25,9 @@
 
 <script>
 import Bar from '../components/Bar.vue'
+import Recommend from '../components/Recommend.vue'
   export default {
-  components: { Bar },
+  components: { Bar, Recommend },
     name: 'Home',
   }
 </script>
