@@ -159,7 +159,7 @@ export default {
       food: [],
       image: [], //เปลี่ยนจาก image:'' เพื่อแก้ error ตรง v-file-input
       img: "",
-      type: ["ของคาว", "ของหวาน"],
+      type: ["คาว", "หวาน"],
       category: [
         "จีน",
         "เกาหลี",
@@ -241,6 +241,7 @@ export default {
                     };
                     Food.dispatch("AddMenu", payload);
                     this.clearForm(); 
+                    location.reload()
                 });
                 });
             }
