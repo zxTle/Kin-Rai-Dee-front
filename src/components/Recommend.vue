@@ -2,8 +2,9 @@
   
   <div class="recommend_card">
       <v-container class = my-3>
-         <v-row no-gutters row:8>
-        <template v-for = "(food,idex) in foodData">
+         <v-row no-gutters >
+        <template v-for = "(foodData,idex) in 10">
+          {{picker()}}
           <v-col md="6" :key = "idex" >
            
       <v-card 
@@ -13,15 +14,15 @@
         width="400"
         rounded-xl
         elevation = "10"
-        to = "/random" 
+        to = "/food" 
       >
       <img 
-        :src="food.img_path" 
+        :src="chosenFood.img_path"
         height="200px"
         class = "my-5 img"
       /> 
       <v-card-text>
-         <h2 class="food-name">{{food.name}}</h2>
+         <h2 class="food-name">{{chosenFood.name}}</h2>
       </v-card-text>
       </v-card>
        
@@ -39,17 +40,24 @@ export default {
     data() {
         return {
            foodData : [],
+           chosenFood : {}
         }
     },
    created(){
     this.fetchFoods()
     },
   methods: {
+     picker(){
+      this.chosenFood = null
+      var numIndex = Math.floor(Math.random() * this.foodData.length)
+      this.chosenFood = this.foodData[numIndex]
+      },
     async fetchFoods() {
       await Food.dispatch('fetchFoods')
       this.foodData = Food.getters.foods
       console.log(this.foodData)
-      }
+      },
+
   }
   
 }
