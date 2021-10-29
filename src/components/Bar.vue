@@ -70,15 +70,15 @@ export default {
       drawer: false,
       isLoggedIn: false,
       currentUser: false,
-      isAdmin: false,
       accountData: {},
+      isAdmin : false
     };
   },
   created() {
     if (getAuth().currentUser) {
       (this.isLoggedIn = true),
         (this.currentUser = getAuth().currentUser.email);
-      this.getAccount(getAuth().currentUser.uid);
+      //this.getAccount(getAuth().currentUser.uid);
     }
   },
   methods: {
