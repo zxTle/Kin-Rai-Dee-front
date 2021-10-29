@@ -213,6 +213,7 @@ export default {
             }
             this.image = [], 
             this.img = ''
+            this.$router.reload()
         },
         addMenu(){
             let check = true
@@ -241,7 +242,6 @@ export default {
                     };
                     Food.dispatch("AddMenu", payload);
                     this.clearForm(); 
-                    location.reload()
                 });
                 });
             }
