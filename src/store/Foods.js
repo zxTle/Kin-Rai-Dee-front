@@ -29,6 +29,15 @@ export default new Vuex.Store({
       },
       addMenu(state,addMenu){
           state.data.push(addMenu)
+      },
+      upScore(state,food){
+          var index = 0;
+          for(let i=0;i<state.data.length;i++){
+              if(state.data[i].name == food.name){
+                  index = i;
+              }
+          }
+          state.data[index].score = food.score
       }
   },
   actions: {
@@ -39,6 +48,10 @@ export default new Vuex.Store({
       async AddMenu({commit},food){
           let foods = await axios.post(api,food)
           commit('addMenu',foods)
+      },
+      async updateScore({commit},food){
+          let foods = await axios.put(api,food)
+          commit('upScore',foods)
       }
   },
   modules: {

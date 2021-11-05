@@ -37,8 +37,8 @@
       </div>
     </div>
   </v-sheet>
-  <food-result v-if="this.chosenFood.ingredients!=null" :food="this.chosenFood" :isRandom="true"></food-result>
-  <h1 v-else>dsda</h1>
+  <food-result v-if="this.chosenFood.ingredients!=null" :food="this.chosenFood" :isRandom="true" :isLike="false"></food-result>
+  <h1 v-else>Rank</h1>
 </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
 <div>
     <div>
-        <v-card class="name-food" elevation="5" max-width="300" height="45" rounded="pill" outlined v-if="!isRandom">
+        <v-card class="name-food rounded-pill" elevation="5" max-width="300" height="45"  outlined v-if="!isRandom">
         {{food.name}}</v-card>
     </div>
     <div class="food-result" align= "center">
@@ -10,11 +10,11 @@
         :aspect-ratio="15/9">
         </v-img> 
     </v-card>
-    <v-btn @click="gotograb"  class="grab-btn" elevation="2" width="210" height="40" rounded="pill" color="#10C652">
+    <v-btn @click="gotograb"  class="grab-btn rounded-pill" elevation="2" width="210" height="40" color="#10C652">
         <v-img src="../assets/grab-food.png" contain aspect-ratio="1.67" class="imgic"></v-img>
         <p class="btn-text" >สั่งอาหาร</p>
     </v-btn>
-    <v-btn class="like-btn" elevation="2" width="210" height="40" rounded="pill" color="#FC476E" v-if="isRandom">
+    <v-btn :disabled=isLike @click="like" class="like-btn rounded-pill" elevation="2" width="210" height="40" color="#FC476E" v-if="isRandom">
         <v-img src="../assets/like.png" contain aspect-ratio="1.67" class="imgic"></v-img>
         <p class="btn-text" >ถูกใจเลย</p>
         
@@ -23,7 +23,7 @@
         <p class="ingd">ส่วนประกอบ</p>
     </v-sheet>
     <v-sheet  class="ingdList" width="850" max-height="1000"> 
-        <v-card  v-for="item in igd" :key="item" class="igd" width="800" height="45" rounded="pill" outlined>
+        <v-card  v-for="item in igd" :key="item" class="igd rounded-pill" width="800" height="45"  outlined>
             <p class="igd_text">{{item.split(":")[0]}} <span style="float:right">{{item.split(":")[1]}}</span></p>  
         </v-card>
     </v-sheet>
@@ -43,19 +43,29 @@
 </template>
 
 <script>
+import Food from '../store/Foods'
 export default {
     props : {
         food : {},
-        isRandom : Boolean
+        isRandom : Boolean,
+        isLike : Boolean
     },
     data (){
         return{
-
+            
         }
     },
     methods :{
         gotograb(){
             window.open(this.food.grabLink,"_blank")
+        },
+        async like(){
+            this.food.score += 1
+            await this.updateScore()
+            this.isLike = true;
+        },
+        async updateScore(){
+           await Food.dispatch("updateScore",this.food)
         }
     },
     computed :{
