@@ -16,94 +16,112 @@
       <!-- name and surname -->
       <v-row class="pt-5 ml-10" no-gutters>
         <v-col>
-        <div class="d-flex flex-row">
-          <label class="pa-5 font-FC-Palette"> Name </label>
-          <label v-if="showName" class="profile-data">{{
-            accountData.name
-          }}</label>
-          <v-icon v-if="showName" @click="changeName">{{
-            icons.mdiPencil
-          }}</v-icon>
-          <v-text-field
-            v-if="isEditName"
-            v-model="profile_form.name"
-            outlined
-            rounded
-            dense
-          ></v-text-field>
-          <v-btn v-if="isEditName" @click="editName">ยืนยัน</v-btn>
-        </div>
+          <div class="d-flex flex-row">
+            <label class="font-FC-Palette"> Name </label>
+            <label v-if="showName" class="ml-10 profile-data">{{
+              accountData.name
+            }}</label>
+            <v-icon class="ml-5" v-if="showName" @click="changeName">{{
+              icons.mdiPencil
+            }}</v-icon>
+            <v-text-field
+              class="ml-5"
+              v-if="isEditName"
+              v-model="profile_form.name"
+              outlined
+              rounded
+              dense
+            ></v-text-field>
+            <v-btn class="ml-5" v-if="isEditName" @click="editName"
+              >ยืนยัน</v-btn
+            >
+          </div>
         </v-col>
       </v-row>
 
       <v-row class="pt-5 ml-10" no-gutters>
-        <v-col cols="16" sm="5">
-          <label class="pa-5 font-FC-Palette"> Surname </label>
-          <label v-if="showSurname" class="profile-data">{{
-            accountData.surName
-          }}</label>
-          <v-icon v-if="showSurname" @click="changeSurname">{{
-            icons.mdiPencil
-          }}</v-icon>
-          <v-text-field
-            v-if="isEditSurname"
-            v-model="profile_form.surName"
-            outlined
-            rounded
-            dense
-          ></v-text-field>
-          <v-btn v-if="isEditSurname" @click="editSurname">ยืนยัน</v-btn>
+        <v-col>
+          <div class="d-flex flex-row">
+            <label class="font-FC-Palette"> Surname </label>
+            <label v-if="showSurname" class="ml-10 profile-data">{{
+              accountData.surName
+            }}</label>
+            <v-icon class="ml-5" v-if="showSurname" @click="changeSurname">{{
+              icons.mdiPencil
+            }}</v-icon>
+            <v-text-field
+              class="ml-5"
+              v-if="isEditSurname"
+              v-model="profile_form.surName"
+              outlined
+              rounded
+              dense
+            ></v-text-field>
+            <v-btn class="ml-5" v-if="isEditSurname" @click="editSurname"
+              >ยืนยัน</v-btn
+            >
+          </div>
         </v-col>
       </v-row>
 
       <!-- username -->
       <v-row class="pt-5 ml-10" no-gutters>
-        <v-col cols="16" sm="10">
-          <label class="pa-5 font-FC-Palette"> Username </label>
-          <label v-if="showUsername" class="profile-data">{{
-            accountData.username
-          }}</label>
-          <v-icon v-if="showUsername" @click="changeUsername">{{
-            icons.mdiPencil
-          }}</v-icon>
-          <v-text-field
-            v-model="profile_form.username"
-            v-if="isEditUsername"
-            outlined
-            rounded
-            dense
-          ></v-text-field>
-          <v-btn v-if="isEditUsername" @click="editUsername">ยืนยัน</v-btn>
+        <v-col>
+          <div class="d-flex flex-row">
+            <label class="font-FC-Palette"> Username </label>
+            <label v-if="showUsername" class="ml-10 profile-data">{{
+              accountData.username
+            }}</label>
+            <v-icon class="ml-5" v-if="showUsername" @click="changeUsername">{{
+              icons.mdiPencil
+            }}</v-icon>
+            <v-text-field
+              class="ml-5"
+              v-model="profile_form.username"
+              v-if="isEditUsername"
+              outlined
+              rounded
+              dense
+            ></v-text-field>
+            <v-btn class="ml-5" v-if="isEditUsername" @click="editUsername"
+              >ยืนยัน</v-btn
+            >
+          </div>
         </v-col>
       </v-row>
 
       <!-- email -->
       <v-row class="pt-5 ml-10" no-gutters>
-        <v-col cols="16" sm="10">
-          <label class="pa-5 font-FC-Palette"> Email </label>
-          <label v-if="showEmail" class="profile-data">{{
-            accountData.email
-          }}</label>
-          <v-icon v-if="showEmail" @click="changeEmail">{{
-            icons.mdiPencil
-          }}</v-icon>
-          <v-text-field
-            v-model="profile_form.email"
-            v-if="isEditEmail"
-            outlined
-            rounded
-            dense
-          ></v-text-field>
-          <v-btn v-if="isEditEmail" @click="editEmail">ยืนยัน</v-btn>
+        <v-col>
+          <div class="d-flex flex-row">
+            <label class="font-FC-Palette"> Email </label>
+            <label v-if="showEmail" class="ml-10 profile-data">{{
+              accountData.email
+            }}</label>
+            <v-icon class="ml-5" v-if="showEmail" @click="changeEmail">{{
+              icons.mdiPencil
+            }}</v-icon>
+            <v-text-field
+              class="ml-5"
+              v-model="profile_form.email"
+              v-if="isEditEmail"
+              outlined
+              rounded
+              dense
+            ></v-text-field>
+            <v-btn class="ml-5" v-if="isEditEmail" @click="editEmail"
+              >ยืนยัน</v-btn
+            >
+          </div>
         </v-col>
       </v-row>
 
       <!-- birthday -->
       <v-row class="pt-5 ml-10" no-gutters>
         <v-col cols="16" sm="10">
-          <label class="pa-5 font-FC-Palette"> Birthday </label>
+          <label class="font-FC-Palette"> Birthday </label>
           <!-- ได้วันเกิดใครมาไม่รู้ ค่อยแก้ทีหลัง -->
-          <label class="profile-data">{{ accountData.birthDay }}</label>
+          <label class="ml-10 profile-data">{{ accountData.birthDay }}</label>
         </v-col>
       </v-row>
     </v-container>
@@ -111,7 +129,7 @@
 </template>
 
 <script>
-import { getAuth, updateProfile, updateEmail } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import Account from "../store/Accounts";
 import { format, parseISO } from "date-fns";
 import { mdiPencil } from "@mdi/js";
@@ -156,6 +174,9 @@ export default {
         ? format(parseISO(this.accountData.birthDay), "dd-MM-yyyy")
         : "";
     },
+    async updateProfile(accountData) {
+      await Account.dispatch("updateProfile", accountData);
+    },
     changeName() {
       this.isEditName = true;
       this.showName = false;
@@ -172,35 +193,17 @@ export default {
       this.isEditEmail = true;
       this.showEmail = false;
     },
-    editName() {
+    async editName() {
       this.isEditName = false;
       this.showName = true;
 
-      const auth = getAuth();
-      // console.log(this.accountData.surName);
-      updateProfile(auth.currentUser, {
-        name: this.profile_form.name,
-      })
-        .then(() => {
-          console.log(this.accountData.name);
-          // console.log("acces")
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      this.accountData.name = this.profile_form.name;
+      // let uid = getAuth().currentUser.uid
+      await this.updateProfile(this.accountData);
     },
     editEmail() {
       this.isEditEmail = false;
       this.showEmail = true;
-
-      const auth = getAuth();
-      updateEmail(auth.currentUser, this.profile_form.email)
-        .then(() => {
-          console.log("success email");
-        })
-        .catch((error) => {
-          console.log(error);
-        });
     },
     editSurname() {
       this.isEditSurname = false;
