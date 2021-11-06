@@ -179,7 +179,6 @@ export default {
       this.$refs.menu.save(date);
     },
     addFrom() {
-      console.log(this.checkField());
 
       if (!this.checkNull()) {
         alert("Please complete the form");
@@ -195,7 +194,7 @@ export default {
           email: this.signup_form.email,
           password: this.signup_form.password,
           cfpass: this.signup_form.cfpass,
-          birthDay: this.signup_form.birthDay,
+          birthDay: this.formattedDate,
         };
         Account.dispatch("signupAccount", payload);
         alert("create account success");
@@ -205,13 +204,10 @@ export default {
     },
     checkField() {
       this.account.forEach((acc) => {
-        console.log(acc.username);
-        console.log(this.signup_form.username);
         if (
           acc.username == this.signup_form.username ||
           acc.email == this.signup_form.email
         ) {
-          console.log("enter");
           return false;
         }
       });

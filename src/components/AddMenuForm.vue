@@ -159,7 +159,7 @@ export default {
       food: [],
       image: [], //เปลี่ยนจาก image:'' เพื่อแก้ error ตรง v-file-input
       img: "",
-      type: ["ของคาว", "ของหวาน"],
+      type: ["คาว", "หวาน"],
       category: [
         "จีน",
         "เกาหลี",
@@ -213,6 +213,7 @@ export default {
             }
             this.image = [], 
             this.img = ''
+            this.$router.reload()
         },
         addMenu(){
             let check = true
