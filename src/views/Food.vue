@@ -1,7 +1,8 @@
 <template>
   <div>
     <bar></bar>
-    <food-result></food-result>
+    <food-result class="my-10" :food ="this.chosen" :isRandom="false"></food-result>
+    {{test()}}
   </div>
 </template>
 
@@ -12,9 +13,14 @@ import Bar from '../components/Bar.vue'
 export default {
   components:{ Bar, FoodResult},
   props : {
-    isRandom : Boolean
+    chosen : {},
+  },
+  methods:{
+    test(){
+      console.log(this.chosen)
+    }
   }
-  }
+}
   
 </script>
 

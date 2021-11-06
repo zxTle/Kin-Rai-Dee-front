@@ -17,30 +17,33 @@
         to = "/food" 
       >
       <img 
-        :src="chosenFood.img_path"
+        :src="chosenFood_img"
         height="200px"
         class = "my-5 img"
       /> 
       <v-card-text>
-         <h2 class="food-name">{{chosenFood.name}}</h2>
+         <h2 class="food-name">{{chosenFood_name}}</h2>
       </v-card-text>
       </v-card>
-       
        </v-col>
       </template>
        </v-row>
       </v-container>
+      <foodview :chosen="this.chosenFood"></foodview>
     </div>
-  
 </template>
 
 <script>
 import Food from "../store/Foods";
+import foodview from '../views/Food';
 export default {
+  components: { foodview },
     data() {
         return {
            foodData : [],
-           chosenFood : {}
+           chosenFood : {},
+           chosenFood_name: {},
+           chosenFood_img: {},
         }
     },
    created(){
@@ -51,13 +54,14 @@ export default {
       this.chosenFood = null
       var numIndex = Math.floor(Math.random() * this.foodData.length)
       this.chosenFood = this.foodData[numIndex]
+      this.chosenFood_name = this.foodData[numIndex].name
+      this.chosenFood_img = this.foodData[numIndex].img_path
       },
     async fetchFoods() {
       await Food.dispatch('fetchFoods')
       this.foodData = Food.getters.foods
       console.log(this.foodData)
       },
-
   }
   
 }
