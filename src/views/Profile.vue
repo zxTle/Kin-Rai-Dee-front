@@ -11,7 +11,6 @@ import ProfilePage from '@/components/ProfilePage'
 import Bar from '@/components/Bar.vue'
 export default {
   components: { ProfilePage,Bar }
-
 }
 </script>
 
