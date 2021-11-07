@@ -22,7 +22,7 @@
         </v-row>
 
         <v-row justify="start">
-          <v-select v-model="selectedChoiceCtg" :items="categories" label="Categories" class="mx-8 mt-2" multiple chips ></v-select>
+          <v-select v-model="selectedChoiceCtg" :items="categories" label="Categories" class="mx-13 mt-2" multiple chips ></v-select>
         </v-row>
 
         <v-row no-gutters justify="start" class="ml-10">
@@ -30,7 +30,7 @@
         </v-row>
 
         <v-row justify="start">
-          <v-select v-model="selectedChoiceType" :items="types" label="Types" class="mx-8 mt-2" multiple chips></v-select>
+          <v-select v-model="selectedChoiceType" :items="types" label="Types" class="mx-13 mt-2" multiple chips></v-select>
         </v-row>
 
       </v-card>
