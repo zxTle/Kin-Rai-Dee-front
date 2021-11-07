@@ -22,7 +22,7 @@
         </v-row>
 
         <v-row justify="start">
-          <v-select v-model="selectedChoice" :items="categories" label="Categories" class="mx-8 mt-2" multiple chips ></v-select>
+          <v-select v-model="selectedChoiceCtg" :items="categories" label="Categories" class="mx-8 mt-2" multiple chips ></v-select>
         </v-row>
 
         <v-row no-gutters justify="start" class="ml-10">
@@ -30,7 +30,7 @@
         </v-row>
 
         <v-row justify="start">
-          <v-select v-model="selectedChoice" :items="types" label="Types" class="mx-8 mt-2" multiple chips></v-select>
+          <v-select v-model="selectedChoiceType" :items="types" label="Types" class="mx-8 mt-2" multiple chips></v-select>
         </v-row>
 
       </v-card>
@@ -40,7 +40,8 @@
   <!-- <div class="mr-16 mt-8 d-flex flex-row-reverse">
     <v-img  src="../assets/filter-filled-tool-symbol.png" max-height="35" max-width="35"  ></v-img>
   </div> -->
- <h1>{{selectedChoice}}</h1>
+ <h1>{{selectedChoiceCtg}}</h1>
+ <h1>{{selectedChoiceType}}</h1>
  <v-card v-for="(food,index) in filteredFood" :key="index"> {{ food }} </v-card>
 
   <v-sheet
@@ -95,7 +96,8 @@ import FoodResult from '../components/FoodResult.vue'
       chosenFood : {},
       categories : ["จีน", "เกาหลี", "อิตาลี", "ไทย", "อินเดีย", "ญี่ปุ่น", "นานาชาติ"],
       types : ["คาว", "หวาน"],
-      selectedChoice : []
+      selectedChoiceCtg : [],
+      selectedChoiceType : []
     }
   },
   created(){
@@ -120,29 +122,18 @@ import FoodResult from '../components/FoodResult.vue'
         let res = this.foods.filter((element) => {
         // เลือกแค่ category ไม่ได้เลือก type
 
-          let selectedCgr = this.selectedChoice.indexOf(element.category) // element นี้มี category อยู่ใน selectedCgr
-          let selectedT = this.selectedChoice.indexOf(element.type)
-          let selectedBoth = this.selectedChoice.indexOf(element.category)!== -1 && this.selectedChoice.indexOf(element.type)!==-1
+          let selectedCtg = this.selectedChoiceCtg.includes(element.category) // element นี้มี category อยู่ใน selectedCgr
+          let selectedT = this.selectedChoiceType.includes(element.type)
 
-          console.log("category",this.selectedChoice.indexOf(element.category)!== -1)
-          console.log("type",this.selectedChoice.indexOf(element.type)!==-1)
-          // ทั้งคู่
-          // เลือกแค่ category ไม่ได้เลือก type
-          if(selectedCgr!==-1 && selectedBoth===false){
-            console.log("cgr element",element.name)
-            return true;
+          // ถ้าเลือกแค่อย่างใดอย่างหนึ่ง either category
+          if(this.selectedChoiceCtg.length===0 || this.selectedChoiceType.length===0){
+            if(selectedCtg) return true;
+            else if(selectedT) return true;
           }
-          // เลือกแค่ type ไม่ได้เลือก category
-          else if(selectedT!==-1 && selectedBoth===false){
-            console.log("type element",element.name)
-            return true;
+          else{
+            console.log("เลือกทั้งคู่")
+            return this.selectedChoiceCtg.includes(element.category) && this.selectedChoiceType.includes(element.type);
           }
-          else if(selectedBoth){
-            console.log("both element",element.name)
-            return true
-          }
-          
-
 
         //if(this.selectedChoice.indexOf(element.category)===-1 && this.selectedChoice.indexOf(element.type)===-1) return this.foods;
         // return this.selectedChoice.includes(element.category);
