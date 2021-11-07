@@ -40,9 +40,9 @@
   <!-- <div class="mr-16 mt-8 d-flex flex-row-reverse">
     <v-img  src="../assets/filter-filled-tool-symbol.png" max-height="35" max-width="35"  ></v-img>
   </div> -->
- <h1>{{selectedChoiceCtg}}</h1>
+ <!-- <h1>{{selectedChoiceCtg}}</h1>
  <h1>{{selectedChoiceType}}</h1>
- <v-card v-for="(food,index) in filteredFood" :key="index"> {{ food }} </v-card>
+ <v-card v-for="(food,index) in filteredFood" :key="index"> {{ food }} </v-card> -->
 
   <v-sheet
     class="mb-lg-14 mt-3 mx-lg-auto random"
@@ -111,10 +111,10 @@ import FoodResult from '../components/FoodResult.vue'
     },
     picker(){
       this.chosenFood=null
-      var numIndex = Math.floor(Math.random() * this.foods.length)
+      var numIndex = Math.floor(Math.random() * this.filteredFood.length)
       console.log('numIndex',numIndex)
-      this.chosenFood = this.foods[numIndex]
-      this.chosenFood_name = this.foods[numIndex].name
+      this.chosenFood = this.filteredFood[numIndex]
+      this.chosenFood_name = this.filteredFood[numIndex].name
     },
   },
   computed:{
@@ -125,8 +125,12 @@ import FoodResult from '../components/FoodResult.vue'
           let selectedCtg = this.selectedChoiceCtg.includes(element.category) // element นี้มี category อยู่ใน selectedCgr
           let selectedT = this.selectedChoiceType.includes(element.type)
 
+          if(this.selectedChoiceCtg.length===0 && this.selectedChoiceType.length===0){
+            return true;
+          }
+
           // ถ้าเลือกแค่อย่างใดอย่างหนึ่ง either category
-          if(this.selectedChoiceCtg.length===0 || this.selectedChoiceType.length===0){
+          else if(this.selectedChoiceCtg.length===0 || this.selectedChoiceType.length===0){
             if(selectedCtg) return true;
             else if(selectedT) return true;
           }
