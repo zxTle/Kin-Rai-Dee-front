@@ -93,35 +93,35 @@
       <!-- email -->
       <v-row class="pt-5 ml-10" no-gutters>
         <v-col>
-          <div class="d-flex flex-row">
-            <label class="font-FC-Palette"> Email </label>
-            <label v-if="showEmail" class="ml-10 profile-data">{{
-              accountData.email
-            }}</label>
-            <v-icon class="ml-5" v-if="showEmail" @click="changeEmail">{{
-              icons.mdiPencil
-            }}</v-icon>
-            <v-text-field
-              class="ml-5"
-              v-model="profile_form.email"
-              v-if="isEditEmail"
-              outlined
-              rounded
-              dense
-            ></v-text-field>
-            <v-btn class="ml-5" v-if="isEditEmail" @click="editEmail"
-              >ยืนยัน</v-btn
-            >
-          </div>
+          <label class="font-FC-Palette"> Email </label>
+          <label class="ml-10 profile-data">{{ accountData.email }}</label>
         </v-col>
       </v-row>
 
       <!-- birthday -->
       <v-row class="pt-5 ml-10" no-gutters>
-        <v-col cols="16" sm="10">
-          <label class="font-FC-Palette"> Birthday </label>
-          <!-- ได้วันเกิดใครมาไม่รู้ ค่อยแก้ทีหลัง -->
-          <label class="ml-10 profile-data">{{ accountData.birthDay }}</label>
+        <v-col>
+          <div class="d-flex flex-row">
+            <label class="font-FC-Palette"> Birthday </label>
+            <label v-if="showBirthday" class="ml-10 profile-data">{{
+              accountData.birthDay
+            }}</label>
+            <v-icon
+              v-if="showBirthday"
+              @click="changeBirthday"
+              class="ml-5"
+              large
+              >event</v-icon
+            >
+            <v-date-picker
+              v-model="profile_form.birthDay"
+              class="ml-5"
+              v-if="isEditBirthday"
+            ></v-date-picker>
+            <v-btn class="ml-5" v-if="isEditBirthday" @click="editBirthday"
+              >ยืนยัน</v-btn
+            >
+          </div>
         </v-col>
       </v-row>
     </v-container>
@@ -145,8 +145,8 @@ export default {
       showSurname: true,
       isEditUsername: false,
       showUsername: true,
-      isEditEmail: false,
-      showEmail: true,
+      isEditBirthday: false,
+      showBirthday: true,
       icons: {
         mdiPencil,
       },
@@ -155,7 +155,7 @@ export default {
         name: "",
         surName: "",
         email: "",
-        birthDay: "",
+        birthDay: null,
       },
     };
   },
@@ -177,6 +177,15 @@ export default {
     async updateProfile(accountData) {
       await Account.dispatch("updateProfile", accountData);
     },
+    clearForm() {
+      this.profile_form = {
+        username: "",
+        name: "",
+        surName: "",
+        email: "",
+        birthDay: null,
+      };
+    },
     changeName() {
       this.isEditName = true;
       this.showName = false;
@@ -189,30 +198,57 @@ export default {
       this.isEditUsername = true;
       this.showUsername = false;
     },
-    changeEmail() {
-      this.isEditEmail = true;
-      this.showEmail = false;
+    changeBirthday() {
+      this.isEditBirthday = true;
+      this.showBirthday = false;
+    },
+    async editBirthday() {
+      this.isEditBirthday = false;
+      this.showBirthday = true;
+
+      if (this.profile_form.birthDay !== null) {
+        this.accountData.birthDay = this.formattedDate;
+        await this.updateProfile(this.accountData);
+      }
+      this.clearForm();
     },
     async editName() {
       this.isEditName = false;
       this.showName = true;
 
-      this.accountData.name = this.profile_form.name;
-      // let uid = getAuth().currentUser.uid
-      await this.updateProfile(this.accountData);
+      if (this.profile_form.name !== "") {
+        this.accountData.name = this.profile_form.name;
+        await this.updateProfile(this.accountData);
+      }
+      this.clearForm();
     },
-    editEmail() {
-      this.isEditEmail = false;
-      this.showEmail = true;
-    },
-    editSurname() {
+    async editSurname() {
       this.isEditSurname = false;
       this.showSurname = true;
+
+      if (this.profile_form.surName !== "") {
+        this.accountData.surName = this.profile_form.surName;
+        // let uid = getAuth().currentUser.uid
+        await this.updateProfile(this.accountData);
+      }
+      this.clearForm();
     },
-    editUsername() {
+    async editUsername() {
       this.isEditUsername = false;
       this.showUsername = true;
-      // this.$router.push("/");
+
+      if (this.profile_form.username !== "") {
+        this.accountData.username = this.profile_form.username;
+        await this.updateProfile(this.accountData);
+      }
+      this.clearForm();
+    },
+  },
+  computed: {
+    formattedDate() {
+      return this.profile_form.birthDay
+        ? format(parseISO(this.profile_form.birthDay), "dd-MM-yyyy")
+        : "";
     },
   },
 };
