@@ -1,6 +1,7 @@
 <template>
 
   <div>
+      <v-img  class="crown" src="../assets/crown.png" aspect-ratio="1" width="70" height=70></v-img>
       <v-card class="img rounded-circle" width="120" height="120" elevation="3" color="#C50000">
         <v-img v-if="this.isHaveData" :src="foods[0].img_path" class="rounded-circle image-food" :aspect-ratio="1" width="100" height="100"></v-img>
       </v-card> 

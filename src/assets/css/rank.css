@@ -53,3 +53,9 @@
 .img-in{
     margin-top: 5px;
 }
+.crown{
+    margin-left: 770px;
+    z-index: 2;
+    margin-bottom: -30px;
+    transform: rotate(30deg);
+}
