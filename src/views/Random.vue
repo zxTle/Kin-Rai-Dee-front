@@ -18,10 +18,10 @@
       width="530"
       rounded-xl
       >
-      <v-card-text class="text-center ">
+      <v-card-text class="text-center foodrandom">
         <h2>อาหารที่สุ่มได้</h2>
       </v-card-text>
-      <h1 class="result_text">{{chosenFood_name}}</h1>
+      <h1 class="result_text mt-7">{{chosenFood_name}}</h1>
       </v-card>
       <div class="random_btn">
         <v-btn 
@@ -37,8 +37,8 @@
       </div>
     </div>
   </v-sheet>
-  <food-result v-if="this.chosenFood.ingredients!=null" :food="this.chosenFood" :isRandom="true" :isLike="false"></food-result>
-  <h1 v-else>Rank</h1>
+  <food-result v-if="this.chosenFood.ingredients!=null" :food="this.chosenFood" :isRandom="true" :isLike="false" :foodRank="this.foodRank"></food-result>
+  <rank v-else :foods="this.foodRank" :isHaveData="this.isHaveData"></rank>
 </div>
 </template>
 
@@ -46,17 +46,21 @@
 import FoodStore from '@/store/Foods'
 import Bar from '../components/Bar.vue'
 import FoodResult from '../components/FoodResult.vue'
+import Rank from '../components/Rank.vue'
   export default {
-  components: { Bar,FoodResult},
+  components: { Bar,FoodResult,Rank},
   data() {
     return {
       foods: [],
       chosenFood_name: '',
-      chosenFood : {}
+      chosenFood : {},
+      foodRank: [],
+      isHaveData : false
     }
   },
   created(){
-    this.fetchFoods()
+    this.fetchFoods(),
+    this.fetchFoodsRank()
   },
   methods: {
     async fetchFoods() {
@@ -70,12 +74,22 @@ import FoodResult from '../components/FoodResult.vue'
       console.log('numIndex',numIndex)
       this.chosenFood = this.foods[numIndex]
       this.chosenFood_name = this.foods[numIndex].name
-    }
+      this.fetchFoodsRank()
+    },
+    async fetchFoodsRank() {
+            await FoodStore.dispatch('getFoodsRank')
+            this.foodRank = FoodStore.getters.foodrank
+            this.isHaveData = true
+    },
   }
   }
 </script>
 
 <style scoped lang="css">
+.foodrandom{
+  font-family: 'supermarket';
+  font-size: 20px;
+}
 .random_card {
   margin: auto;
   padding-top: 40px;
@@ -87,7 +101,7 @@ import FoodResult from '../components/FoodResult.vue'
 .result_text{
   font-family: "FC Palette";
   text-align: center;
-  font-size: 80px;
+  font-size: 50px;
 }
 .random {
   border-radius: 30px;

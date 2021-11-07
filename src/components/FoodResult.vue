@@ -28,7 +28,10 @@
         </v-card>
     </v-sheet>
 
-    <v-sheet class="howto" color="#C50000" elevation="10" width="280" height="70" rounded="pill">
+    <v-sheet v-if="how.length > 5" class="howto" color="#C50000" elevation="10" width="280" height="70" rounded="pill">
+        <p>วิธีทำ</p>
+    </v-sheet>
+    <v-sheet v-else-if="how.length <= 5" class="howto2" color="#C50000" elevation="10" width="280" height="70" rounded="pill">
         <p>วิธีทำ</p>
     </v-sheet>
     <v-sheet class="howList" max-width="1200" max-height="1000">
@@ -38,21 +41,25 @@
     </v-sheet>  
     
   </div>
+  <rank v-if="isRandom" :foods="this.foodRank" :isHaveData="this.isHaveData"></rank>
 </div>
   
 </template>
 
 <script>
 import Food from '../store/Foods'
+import Rank from './Rank.vue'
 export default {
+  components: { Rank },
     props : {
         food : {},
         isRandom : Boolean,
-        isLike : Boolean
+        isLike : Boolean,
+        foodRank :[]
     },
     data (){
         return{
-            
+            isHaveData : true
         }
     },
     methods :{
@@ -63,10 +70,15 @@ export default {
             this.food.score += 1
             await this.updateScore()
             this.isLike = true;
+            this.fetchFoodsRank()
         },
         async updateScore(){
            await Food.dispatch("updateScore",this.food)
-        }
+        },
+         async fetchFoodsRank() {
+            await Food.dispatch('getFoodsRank')
+            this.foodRank = Food.getters.foodrank
+        },
     },
     computed :{
         igd:function(){

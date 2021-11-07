@@ -1,0 +1,55 @@
+.rank-text{
+    font-family: "supermarket";
+    font-size: 70px;
+    text-align: left;
+    padding-top: 9.5px;
+    margin-left: 50px;
+    margin-right: 50px;
+    color: white;
+}
+.rank-text1{
+    font-family: "supermarket";
+    font-size: 70px;
+    text-align: left;
+    margin-left: 50px;
+    margin-right: 50px;
+    color: #C50000;
+}
+.normal{
+    font-family: "supermarket";
+    font-size: 30px;
+    text-align: left;
+    padding-top: 45px;
+    margin-left: -20px;
+    margin-right: 50px;
+    color: white;
+}
+.normal1{
+    font-family: "supermarket";
+    font-size: 30px;
+    text-align: left;
+    padding-top: 30px;
+    margin-left: -25px;
+    margin-right: 50px;
+    color: #C50000;
+}
+.card{
+    padding-top: 50px;
+}
+.img{
+    position: absolute;
+    margin-left: 700px;
+    z-index: 1;
+}
+.image-food{
+    margin-top: 10.5px;
+    margin-left: 9.5px;
+}
+.img1{
+   position: absolute;
+   margin-top: 5px;
+   margin-left: 480px;
+}
+.img-in{
+    margin-top: 5px;
+}

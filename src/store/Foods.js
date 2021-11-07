@@ -18,10 +18,22 @@ export default new Vuex.Store({
             how_to : '',
             img_path : ''
           }
-      ]  
+      ],
+      rank : [
+        {
+            name : '',
+            type : '',
+            category : '',
+            grabLink : '',
+            ingredients : '',
+            how_to : '',
+            img_path : ''
+          }
+      ]
   },
   getters:{
-      foods : (state) => state.data  
+      foods : (state) => state.data  ,
+      foodrank : (state) => state.rank
   },
   mutations: {
       fetch(state, {foods}){
@@ -38,6 +50,9 @@ export default new Vuex.Store({
               }
           }
           state.data[index].score = food.score
+      },
+      fetchRank(state,{foods}){
+          state.rank = foods.data
       }
   },
   actions: {
@@ -52,6 +67,10 @@ export default new Vuex.Store({
       async updateScore({commit},food){
           let foods = await axios.put(api,food)
           commit('upScore',foods)
+      },
+      async getFoodsRank({commit}){
+          let foods = await axios.get(api+"/rank")
+          commit('fetchRank',{foods})
       }
   },
   modules: {
