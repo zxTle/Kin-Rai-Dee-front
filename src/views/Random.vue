@@ -122,25 +122,37 @@ import FoodResult from '../components/FoodResult.vue'
 
           let selectedCgr = this.selectedChoice.indexOf(element.category) // element นี้มี category อยู่ใน selectedCgr
           let selectedT = this.selectedChoice.indexOf(element.type)
-          let selectedBoth = this.selectedChoice.indexOf(element.category)!== -1 && this.selectedChoice.indexOf(element.type)!==-1
+          let selectedBoth = this.selectedChoice.indexOf(element.category && element.type) 
+          
+          console.log("Cgr",selectedCgr);
+          console.log("Type",selectedT);
+          console.log("Both",selectedBoth);
 
-          console.log("category",this.selectedChoice.indexOf(element.category)!== -1)
-          console.log("type",this.selectedChoice.indexOf(element.type)!==-1)
+          // console.log("category",this.selectedChoice.indexOf(element.category)!== -1)
+          // console.log("type",this.selectedChoice.indexOf(element.type)!==-1)
           // ทั้งคู่
           // เลือกแค่ category ไม่ได้เลือก type
-          if(selectedCgr!==-1 && selectedBoth===false){
-            console.log("cgr element",element.name)
-            return true;
-          }
-          // เลือกแค่ type ไม่ได้เลือก category
-          else if(selectedT!==-1 && selectedBoth===false){
-            console.log("type element",element.name)
-            return true;
-          }
-          else if(selectedBoth){
+          if(selectedBoth !== -1 && selectedCgr===0){
             console.log("both element",element.name)
             return true
           }
+          else if(selectedCgr!==-1 && selectedT!==-1){ //&& selectedBoth===false){
+            console.log("cgr element",element.name)
+            return true;
+          }
+          //เลือกแค่ type ไม่ได้เลือก category
+          else if(selectedT!==-1 && selectedCgr!==-1){// && selectedBoth===false){
+            console.log("type element",element.name)
+            return true;
+          }
+          else if(selectedT ===-1 && selectedCgr>=0 && selectedBoth===-1){
+            console.log("enter");
+            return true
+          }
+          else if( selectedCgr ===-1 && selectedT >=0 && selectedBoth===0){
+            return true
+          }
+    
           
 
 
