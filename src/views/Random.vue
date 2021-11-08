@@ -1,12 +1,77 @@
 <template>
   <div>
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
     <bar></bar>
+
+    <v-menu
+      :close-on-content-click="false"
+      :nudge-width="200"
+      offset-x
+      transition="scroll-y-transition"
+      max-width="500"
+      height="430"
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <div
+          v-bind="attrs"
+          v-on="on"
+          class="mr-16 mt-8 d-flex flex-row-reverse"
+        >
+          <v-img
+            src="../assets/filter-filled-tool-symbol.png"
+            max-height="35"
+            max-width="35"
+            color="#C50000"
+          ></v-img>
+        </div>
+      </template>
+      <v-card class="mx-auto" max-width="500" height="430">
+        <v-card-title
+          class="font_only"
+          style="background: #c50000; color: white"
+        >
+          Filter Types & Categories
+        </v-card-title>
+        <v-row no-gutters justify="start" class="ml-10">
+          <div class="border">Categories</div>
+        </v-row>
+
+        <v-row justify="start">
+          <v-select
+            v-model="selectedChoiceCtg"
+            :items="categories"
+            label="Categories"
+            class="mx-13 mt-2"
+            multiple
+            chips
+          ></v-select>
+        </v-row>
+
+        <v-row no-gutters justify="start" class="ml-10">
+          <div class="border">Types</div>
+        </v-row>
+
+        <v-row justify="start">
+          <v-select
+            v-model="selectedChoiceType"
+            :items="types"
+            label="Types"
+            class="mx-13 mt-2"
+            multiple
+            chips
+          ></v-select>
+        </v-row>
+      </v-card>
+    </v-menu>
+
+    <!-- <div class="mr-16 mt-8 d-flex flex-row-reverse">
+    <v-img  src="../assets/filter-filled-tool-symbol.png" max-height="35" max-width="35"  ></v-img>
+  </div> -->
+    <!-- <h1>{{selectedChoiceCtg}}</h1>
+ <h1>{{selectedChoiceType}}</h1>
+ <v-card v-for="(food,index) in filteredFood" :key="index"> {{ food }} </v-card> -->
+
     <v-sheet
-      class="ma-md-16 mx-lg-auto random"
+      class="mb-lg-14 mt-3 mx-lg-auto random"
       color="#C50000"
       height="350"
       rounded-xl
@@ -67,6 +132,18 @@ export default {
       chosenFood: {},
       foodRank: [],
       isHaveData: false,
+      categories: [
+        "จีน",
+        "เกาหลี",
+        "อิตาลี",
+        "ไทย",
+        "อินเดีย",
+        "ญี่ปุ่น",
+        "นานาชาติ",
+      ],
+      types: ["คาว", "หวาน"],
+      selectedChoiceCtg: [],
+      selectedChoiceType: [],
     };
   },
   created() {
@@ -80,10 +157,9 @@ export default {
     },
     picker() {
       this.chosenFood = null;
-      var numIndex = Math.floor(Math.random() * this.foods.length);
-      console.log("numIndex", numIndex);
-      this.chosenFood = this.foods[numIndex];
-      this.chosenFood_name = this.foods[numIndex].name;
+      var numIndex = Math.floor(Math.random() * this.filteredFood.length);
+      this.chosenFood = this.filteredFood[numIndex];
+      this.chosenFood_name = this.filteredFood[numIndex].name;
       this.fetchFoodsRank();
     },
     async fetchFoodsRank() {
@@ -93,7 +169,44 @@ export default {
     },
     addHistory() {
       // console.log(History.)
-      History.dispatch('fetchHistory')
+      History.dispatch("fetchHistory");
+    },
+  },
+  computed: {
+    filteredFood: function () {
+      let res = this.foods.filter((element) => {
+        // เลือกแค่ category ไม่ได้เลือก type
+
+        let selectedCtg = this.selectedChoiceCtg.includes(element.category); // element นี้มี category อยู่ใน selectedCgr
+        let selectedT = this.selectedChoiceType.includes(element.type);
+
+        if (
+          this.selectedChoiceCtg.length === 0 &&
+          this.selectedChoiceType.length === 0
+        ) {
+          return true;
+        }
+
+        // ถ้าเลือกแค่อย่างใดอย่างหนึ่ง either category
+        else if (
+          this.selectedChoiceCtg.length === 0 ||
+          this.selectedChoiceType.length === 0
+        ) {
+          if (selectedCtg) return true;
+          else if (selectedT) return true;
+        } else {
+          console.log("เลือกทั้งคู่");
+          return (
+            this.selectedChoiceCtg.includes(element.category) &&
+            this.selectedChoiceType.includes(element.type)
+          );
+        }
+
+        //if(this.selectedChoice.indexOf(element.category)===-1 && this.selectedChoice.indexOf(element.type)===-1) return this.foods;
+        // return this.selectedChoice.includes(element.category);
+      });
+      console.log(res);
+      return res;
     },
   },
 };
@@ -119,5 +232,26 @@ export default {
 }
 .random {
   border-radius: 30px;
+}
+
+.font_only {
+  font-family: "FC Palette";
+  font-size: 26px;
+}
+
+.border {
+  font-family: "supermarket";
+  font-size: 24px;
+  font-weight: bold;
+  color: #252525;
+  margin-left: -11px;
+  margin-top: 20px;
+  text-align: center;
+  padding-top: 0px;
+  width: 190px;
+  height: 50px;
+  background: #ffffff;
+  border: 6px solid #d72323;
+  border-radius: 100px;
 }
 </style>

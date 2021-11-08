@@ -8,6 +8,7 @@ import Login from "@/views/auth/Login.vue"
 import Admin from '@/views/Admin.vue'
 import { getAuth } from "firebase/auth";
 import Profile from "@/views/Profile.vue"
+import Food from "@/views/Food.vue"
 import History from "@/views/History.vue"
 
 Vue.use(VueRouter)
@@ -52,10 +53,15 @@ const routes = [
     component: Profile,
   },
   {
+    path: '/food',
+    name: 'Food',
+    component: Food,
+  },
+  {
     path: '/history',
     name: 'History',
     component: History,
-  },
+  }
 ]
 
 const router = new VueRouter({
