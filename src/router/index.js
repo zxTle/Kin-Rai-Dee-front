@@ -8,6 +8,7 @@ import Login from "@/views/auth/Login.vue"
 import Admin from '@/views/Admin.vue'
 import { getAuth } from "firebase/auth";
 import Profile from "@/views/Profile.vue"
+import History from "@/views/History.vue"
 
 Vue.use(VueRouter)
 
@@ -49,6 +50,11 @@ const routes = [
     path: '/profile',
     name: 'Profile',
     component: Profile,
+  },
+  {
+    path: '/history',
+    name: 'History',
+    component: History,
   },
 ]
 

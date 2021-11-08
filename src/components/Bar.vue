@@ -49,6 +49,10 @@
             <v-list-item to="/profile" v-if="isLoggedIn">
             <v-list-item-title class="signup-btn">ข้อมูลส่วนตัว</v-list-item-title>
             </v-list-item>
+
+            <v-list-item to="/history" v-if="isLoggedIn">
+            <v-list-item-title class="signup-btn">ประวัติ</v-list-item-title>
+            </v-list-item>
             
             <v-list-item v-if="isLoggedIn">
             <v-list-item-title @click="logOut"  class="signup-btn">ออกจากระบบ</v-list-item-title>
