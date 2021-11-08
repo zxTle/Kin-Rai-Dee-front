@@ -50,7 +50,7 @@
             <v-list-item-title class="signup-btn">ข้อมูลส่วนตัว</v-list-item-title>
             </v-list-item>
 
-            <v-list-item to="/history" v-if="isLoggedIn">
+            <v-list-item to="/history" v-if="isLoggedIn && !isAdmin">
             <v-list-item-title class="signup-btn">ประวัติ</v-list-item-title>
             </v-list-item>
             
