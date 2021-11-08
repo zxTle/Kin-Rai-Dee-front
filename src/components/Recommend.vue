@@ -47,13 +47,13 @@ export default {
     },
     methods:{
       setVariable(){
-        for(let i=0;i<10;i++){
+        for(let i=0;i<this.foods.length;i++){
           this.chosenFood_name[i] = this.foods[i].name
           this.chosenFood_img[i] = this.foods[i].img_path
         }
       },
       pick(index){
-        for(let i=0;i<10;i++){
+        for(let i=0;i<this.foods.length;i++){
           if(i===index){
             Food.dispatch('setFoodRec',this.foods[i])
           }

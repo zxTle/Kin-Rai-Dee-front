@@ -1,7 +1,7 @@
 <template>
 <div>
     <div>
-        <v-card class="name-food rounded-pill" elevation="5" max-width="300" height="45"  outlined v-if="!isRandom">
+        <v-card class="name-food rounded-pill" elevation="5" max-width="500" height="70"  outlined v-if="!isRandom">
         {{food.name}}</v-card>
     </div>
     <div class="food-result" align= "center">

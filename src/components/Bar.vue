@@ -46,11 +46,11 @@
             <v-list-item-title class="signup-btn">เพิ่มอาหาร</v-list-item-title>
             </v-list-item>
 
-            <v-list-item to="/profile" v-if="isLoggedIn">
+            <v-list-item to="/profile" v-if="isLoggedIn && !isAdmin">
             <v-list-item-title class="signup-btn">ข้อมูลส่วนตัว</v-list-item-title>
             </v-list-item>
 
-            <v-list-item to="/history" v-if="isLoggedIn">
+            <v-list-item to="/history" v-if="isLoggedIn && !isAdmin">
             <v-list-item-title class="signup-btn">ประวัติ</v-list-item-title>
             </v-list-item>
             
@@ -82,7 +82,7 @@ export default {
     if (getAuth().currentUser) {
       (this.isLoggedIn = true),
         (this.currentUser = getAuth().currentUser.email);
-      //this.getAccount(getAuth().currentUser.uid);
+      this.getAccount(getAuth().currentUser.uid);
     }
   },
   methods: {
