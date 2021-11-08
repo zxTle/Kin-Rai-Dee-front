@@ -1,5 +1,6 @@
 <template>
   <div class="recommend_card">
+
       <v-container class = my-3>
          <v-row no-gutters >
         <template v-for = "idex in 10">
@@ -25,6 +26,7 @@
        </v-col>
       </template>
        </v-row>
+
       </v-container>
     </div>
 </template>
@@ -71,7 +73,7 @@ export default {
 </script>
 
 <style scoped lang="css">
-.reccomend_card {
+.recommend_card {
   margin: auto;
   padding-top: 40px;
   align-items: center;
@@ -87,5 +89,21 @@ export default {
 }
 .img {
   border-radius: 30px;
+}
+.modal{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  background-color: white;
+  
+}
+.food{
+  transform: scale(100%);
 }
 </style>
