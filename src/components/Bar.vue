@@ -98,7 +98,7 @@ export default {
         });
     },
     checkRoles() {
-      console.log(this.accountData.roles)
+      //console.log(this.accountData.roles)
       if (this.accountData.roles === "admin") {
         this.isAdmin = true;
       } else {
@@ -109,9 +109,7 @@ export default {
       await Account.dispatch("getAccData", uid);
       this.accountData = Account.getters.accountData;
       //check ข้อูลuser ในนี้แล้วจะขึ้น แต่ถ้าใน created หลังบรรทัด76 จะไม่ขึ้นเพราะยังทำฟังก์ชันนี้ไม่เสร็จ
-      console.log(this.accountData.name);
       // console.log(this.accountData.roles);
-      console.log(this.checkRoles())
       this.checkRoles()
     },
   },

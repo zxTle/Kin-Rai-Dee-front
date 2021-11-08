@@ -42,7 +42,7 @@
     color: white;
 }
 .howto2{
-    margin-top: 150px;
+    margin-top: 200px;
     margin-left: -1100px;
     padding-top: 10px;
     font-size: 40px;
@@ -53,6 +53,7 @@
 .howList{
     margin-left: -420px;
     margin-top: 15px;
+    padding-left: 250px;
 }
 .how_text{
     font-family: "supermarket";
