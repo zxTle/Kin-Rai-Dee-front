@@ -2,12 +2,13 @@
 <div>
   <bar></bar>
   <div align="center">
-    <v-btn to ="/random" class="btnkin" color="#D72323" width="200px">
-      <v-icon color="white" left size="25px">
+    <v-btn to ="/random" class="btnkin rounded-xl" color="#D72323" width="300px" height="50">
+      <v-icon color="white" left size="40px">
         mdi-silverware
       </v-icon>
       <p class="kinrai">วันนี้กินอะไรดีน้า</p>
     </v-btn>
+    <h1 class="rec">- เมนูแนะนำ -</h1>
     <recommend v-if="this.isHaveData" :foods="this.foods"></recommend>
   </div>
   
@@ -43,7 +44,7 @@ export default {
     async fetchFoods() {
       await Food.dispatch('fetchFoods')
       this.foodData = Food.getters.foods
-      for(let i=0;i<10;i++){
+      while(this.foods.length <= 10){
         this.chosenFood = null
         var numIndex = Math.floor(Math.random() * this.foodData.length)
         this.chosenFood = this.foodData[numIndex]
@@ -70,10 +71,18 @@ export default {
   .kinrai{
     color: white;
     font-family: "FC Palette";
-    padding-top: 25px;
+    padding-top: 30px;
     padding-left: 10px;
-    font-size: 20px;
+    font-size: 30px;
     text-align: center;
+  }
+  .rec{
+    background: -webkit-linear-gradient(#c50000, #FFE248);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-top: 50px;
+    font-family: "FC Palette";
+    font-size: 100px;
   }
 
  

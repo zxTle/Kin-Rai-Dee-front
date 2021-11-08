@@ -11,7 +11,8 @@ export default new Vuex.Store({
         data:[
             {
                 userId:'',
-                foodId:''
+                foodId:'',
+                timestamp : ''
             }
         ],
     },
