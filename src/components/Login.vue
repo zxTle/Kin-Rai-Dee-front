@@ -83,6 +83,7 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+          alert("ไอดีผู้ใช้หรือรหัสผ่านผิด")
         });
     },
     // async getAccountData(uid){

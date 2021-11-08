@@ -46,7 +46,7 @@
             <v-list-item-title class="signup-btn">เพิ่มอาหาร</v-list-item-title>
             </v-list-item>
 
-            <v-list-item to="/profile" v-if="isLoggedIn">
+            <v-list-item to="/profile" v-if="isLoggedIn && !isAdmin">
             <v-list-item-title class="signup-btn">ข้อมูลส่วนตัว</v-list-item-title>
             </v-list-item>
 
@@ -82,7 +82,7 @@ export default {
     if (getAuth().currentUser) {
       (this.isLoggedIn = true),
         (this.currentUser = getAuth().currentUser.email);
-      //this.getAccount(getAuth().currentUser.uid);
+      this.getAccount(getAuth().currentUser.uid);
     }
   },
   methods: {
@@ -98,6 +98,7 @@ export default {
         });
     },
     checkRoles() {
+      console.log(this.accountData.roles)
       if (this.accountData.roles === "admin") {
         this.isAdmin = true;
       } else {
@@ -110,8 +111,8 @@ export default {
       //check ข้อูลuser ในนี้แล้วจะขึ้น แต่ถ้าใน created หลังบรรทัด76 จะไม่ขึ้นเพราะยังทำฟังก์ชันนี้ไม่เสร็จ
       console.log(this.accountData.name);
       // console.log(this.accountData.roles);
-      // console.log(this.checkRoles())
-      this.checkRoles();
+      console.log(this.checkRoles())
+      this.checkRoles()
     },
   },
 };
