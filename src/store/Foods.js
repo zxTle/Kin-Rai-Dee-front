@@ -18,10 +18,12 @@ export default new Vuex.Store({
             how_to : '',
             img_path : ''
           }
-      ]  
+      ],
+      foodrec :{} 
   },
   getters:{
-      foods : (state) => state.data  
+      foods : (state) => state.data,
+      foodrec : (state) =>state.foodrec
   },
   mutations: {
       fetch(state, {foods}){
@@ -29,6 +31,9 @@ export default new Vuex.Store({
       },
       addMenu(state,addMenu){
           state.data.push(addMenu)
+      },
+      setRecFood(state,food){
+        state.foodrec=food
       }
   },
   actions: {
@@ -39,6 +44,9 @@ export default new Vuex.Store({
       async AddMenu({commit},food){
           let foods = await axios.post(api,food)
           commit('addMenu',foods)
+      },
+      setFoodRec({commit},food){
+        commit('setRecFood',food)
       }
   },
   modules: {

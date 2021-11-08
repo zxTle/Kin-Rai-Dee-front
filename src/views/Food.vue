@@ -2,7 +2,6 @@
   <div>
     <bar></bar>
     <food-result class="my-10" :food ="this.chosen" :isRandom="false"></food-result>
-    {{test()}}
   </div>
 </template>
 
@@ -10,14 +9,15 @@
 
 import FoodResult from '../components/FoodResult.vue'
 import Bar from '../components/Bar.vue'
+import Food from "../store/Foods";
 export default {
   components:{ Bar, FoodResult},
-  props : {
-    chosen : {},
+  created(){
+    this.getFoodRec()
   },
   methods:{
-    test(){
-      console.log(this.chosen)
+    getFoodRec(){
+        this.chosen = Food.getters.foodrec
     }
   }
 }

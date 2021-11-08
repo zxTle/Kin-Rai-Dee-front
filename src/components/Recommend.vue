@@ -1,12 +1,9 @@
 <template>
-  
   <div class="recommend_card">
       <v-container class = my-3>
          <v-row no-gutters >
-        <template v-for = "(foodData,idex) in 10">
-          {{picker()}}
+        <template v-for = "idex in 10">
           <v-col md="6" :key = "idex" >
-           
       <v-card 
         class="my-8 recommend"
         color= "white"
@@ -14,57 +11,63 @@
         width="400"
         rounded-xl
         elevation = "10"
-        to = "/food" 
+        @click="pick(idex)"
       >
-      <img 
-        :src="chosenFood_img"
+      <v-img 
+        :src="chosenFood_img[idex]"
         height="200px"
         class = "my-5 img"
-      /> 
+      ></v-img>
       <v-card-text>
-         <h2 class="food-name">{{chosenFood_name}}</h2>
+         <h2 class="food-name">{{chosenFood_name[idex]}}</h2>
       </v-card-text>
       </v-card>
        </v-col>
       </template>
        </v-row>
       </v-container>
-      <foodview :chosen="this.chosenFood"></foodview>
     </div>
 </template>
 
 <script>
 import Food from "../store/Foods";
-import foodview from '../views/Food';
 export default {
-  components: { foodview },
+  props :{
+    foods :[]
+  },
+  created(){
+    this.setVariable()
+  },
     data() {
         return {
            foodData : [],
-           chosenFood : {},
-           chosenFood_name: {},
-           chosenFood_img: {},
+           chosenFood_name: [],
+           chosenFood_img: []
         }
     },
-   created(){
-    this.fetchFoods()
-    },
-  methods: {
-     picker(){
-      this.chosenFood = null
-      var numIndex = Math.floor(Math.random() * this.foodData.length)
-      this.chosenFood = this.foodData[numIndex]
-      this.chosenFood_name = this.foodData[numIndex].name
-      this.chosenFood_img = this.foodData[numIndex].img_path
+    methods:{
+      setVariable(){
+        for(let i=0;i<10;i++){
+          this.chosenFood_name[i] = this.foods[i].name
+          this.chosenFood_img[i] = this.foods[i].img_path
+        }
       },
-    async fetchFoods() {
-      await Food.dispatch('fetchFoods')
-      this.foodData = Food.getters.foods
-      console.log(this.foodData)
-      },
+      pick(index){
+        for(let i=0;i<10;i++){
+          if(i===index){
+            Food.dispatch('setFoodRec',this.foods[i])
+          }
+        }
+        this.$router.push("/food");
+      }
+    }
+      // pick(){
+      //   console.log(this.chosenFood_name);
+      //   Food.dispatch('setFoodRec',this.chosenFood)
+      //   this.$router.push("/food")
+      // }
   }
   
-}
 </script>
 
 <style scoped lang="css">

@@ -8,7 +8,7 @@
       </v-icon>
       <p class="kinrai">วันนี้กินอะไรดีน้า</p>
     </v-btn>
-    <recommend></recommend>
+    <recommend v-if="this.isHaveData" :foods="this.foods"></recommend>
   </div>
   
   <!-- <div>
@@ -26,10 +26,36 @@
 <script>
 import Bar from '../components/Bar.vue'
 import Recommend from '../components/Recommend.vue'
-  export default {
+import Food from "../store/Foods";
+export default {
   components: { Bar, Recommend },
     name: 'Home',
+    data(){
+      return{
+        foods:[],
+        isHaveData : false
+      }
+    },
+    created(){
+    this.fetchFoods()
+  },
+  methods: {
+    async fetchFoods() {
+      await Food.dispatch('fetchFoods')
+      this.foodData = Food.getters.foods
+      for(let i=0;i<10;i++){
+        this.chosenFood = null
+        var numIndex = Math.floor(Math.random() * this.foodData.length)
+        this.chosenFood = this.foodData[numIndex]
+        if(!this.foods.some((item) => item === this.chosenFood)){
+          this.foods.push(this.chosenFood)
+        }
+      }
+      this.isHaveData=true
+      },
+
   }
+}
 </script>
 
 <style scoped lang="css">
