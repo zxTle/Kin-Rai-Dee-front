@@ -15,8 +15,8 @@
         absolute
         bottom
         temporary
-        color="#C50000"
-    >
+        color="#C50000">
+        
         <v-list nav>
         <v-container class="closebar">
           <v-btn icon @click.stop="drawer = !drawer">
@@ -26,36 +26,38 @@
           </v-btn>
         </v-container>
         <v-list-item-group class="menu">
+            <p class="text" v-if="isLoggedIn">ยินดีต้อนรับ {{accountData.username}}</p>
+            <p class="text" v-else>ยินดีต้อนรับสู่เว็บไซต์ กินไรดี?</p> 
             <v-list-item to="/">
-            <v-list-item-title class="home-btn">หน้าหลัก</v-list-item-title>
+            <v-list-item-title class="home-btn"><v-icon color="white">mdi-home</v-icon> หน้าหลัก</v-list-item-title>
             </v-list-item>
 
             <v-list-item to="/random" >
-            <v-list-item-title class="random-btn">สุ่มอาหาร</v-list-item-title>
+            <v-list-item-title class="random-btn"><v-icon color="white">fas fa-dice</v-icon> สุ่มอาหาร</v-list-item-title>
             </v-list-item>
 
             <v-list-item to=/login  v-if="!isLoggedIn">
-            <v-list-item-title class="signin-btn">เข้าสู่ระบบ</v-list-item-title>
+            <v-list-item-title class="signin-btn"><v-icon color="white">mdi-login</v-icon> เข้าสู่ระบบ</v-list-item-title>
             </v-list-item>
 
             <v-list-item to="/signup"  v-if="!isLoggedIn">
-            <v-list-item-title class="signup-btn">สมัครสมาชิก</v-list-item-title>
+            <v-list-item-title class="signup-btn"><v-icon color="white">fas fa-user-plus</v-icon> สมัครสมาชิก</v-list-item-title>
             </v-list-item>
 
             <v-list-item to="/admin" v-if="isLoggedIn && isAdmin">
-            <v-list-item-title class="signup-btn">เพิ่มอาหาร</v-list-item-title>
+            <v-list-item-title class="signup-btn"><v-icon color="white">mdi-book-plus</v-icon> เพิ่มอาหาร</v-list-item-title>
             </v-list-item>
 
             <v-list-item to="/profile" v-if="isLoggedIn && !isAdmin">
-            <v-list-item-title class="signup-btn">ข้อมูลส่วนตัว</v-list-item-title>
+            <v-list-item-title class="signup-btn"><v-icon color="white">fas fa-user-cog</v-icon> ข้อมูลส่วนตัว</v-list-item-title>
             </v-list-item>
 
             <v-list-item to="/history" v-if="isLoggedIn && !isAdmin">
-            <v-list-item-title class="signup-btn">ประวัติ</v-list-item-title>
+            <v-list-item-title class="signup-btn"><v-icon color="white">mdi-history</v-icon> ประวัติ</v-list-item-title>
             </v-list-item>
             
             <v-list-item v-if="isLoggedIn">
-            <v-list-item-title @click="logOut"  class="signup-btn">ออกจากระบบ</v-list-item-title>
+            <v-list-item-title @click="logOut"  class="signup-btn"><v-icon color="white">mdi-logout</v-icon> ออกจากระบบ</v-list-item-title>
             </v-list-item>
         </v-list-item-group>
         </v-list>
