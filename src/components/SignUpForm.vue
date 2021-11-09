@@ -1,15 +1,15 @@
 <template>
-  <v-form class="filform">
-    <div class="border font-FC-Palette">
+  <v-form class="filform ml-16" >
+    <div class="border font-FC-Palette ml-16">
       <h1>Sign up</h1>
     </div>
 
-    <div class="mt-10 ml-5">
-      <div class="d-flex flex-row ml-5">
+    <v-sheet class="mt-10 ml-14" width="1500">
+      <v-row class="d-flex flex-row ml-16">
         <label class="pt-5 font-FC-Palette font-size">Name : </label>
-        <v-col class="filname" md="5">
+        <v-col class="filname" md="5" >
           <v-text-field
-            class="text-field-size mr-3"
+            class="text-field-size"
             v-model="signup_form.name"
             :rules="[() => !!signup_form.name || 'กรุณากรอกชื่อ']"
             outlined
@@ -17,7 +17,7 @@
             dense
           ></v-text-field>
         </v-col>
-        <label class="pt-5 font-FC-Palette font-size float-left ml-1"
+        <label class="pt-5 font-FC-Palette font-size float-left "
           >Surname :
         </label>
         <v-col class="filsurname" md="5">
@@ -30,10 +30,10 @@
             dense
           ></v-text-field>
         </v-col>
-      </div>
+      </v-row>
 
-      <div class="d-flex flex-row">
-        <label class="font-FC-Palette font-size pt-5 ml-5">Email : </label>
+      <div class="d-flex flex-row ml-16">
+        <label class="font-FC-Palette font-size pt-5">Email : </label>
         <v-col class="filemail" md="5">
           <v-text-field
             class="text-field-size"
@@ -45,7 +45,7 @@
             dense
           ></v-text-field>
         </v-col>
-        <label class="font-FC-Palette font-size pt-5">Username : </label>
+        <label class="font-FC-Palette font-size pt-5 ml-1">Username : </label>
         <v-col class="filusername" md="5">
           <v-text-field
             class="text-field-size"
@@ -58,9 +58,9 @@
         </v-col>
       </div>
 
-      <div class="d-flex flex-row">
-        <label class="font-FC-Palette font-size pt-5 ml-5">Passsword :</label>
-        <v-col class="filepass" md="5">
+      <div class="d-flex flex-row ml-16">
+        <label class="font-FC-Palette font-size pt-5 ">Passsword :</label>
+        <v-col class="filepass" md="5" ml="16">
           <v-text-field
             class="text-field-size300 ml-16"
             v-model="signup_form.password"
@@ -74,8 +74,8 @@
           ></v-text-field>
         </v-col>
       </div>
-      <div class="d-flex flex-row">
-        <label class="font-FC-Palette font-size pt-5 ml-5"
+      <div class="d-flex flex-row ml-16">
+        <label class="font-FC-Palette font-size pt-5"
           >Confirm passsword :</label
         >
         <v-col class="filepass" md="5">
@@ -98,7 +98,7 @@
           <v-text-field
             :value="formattedDate"
             label="Birthday Date"
-            class="font-FC-Palette font-size text-field-size ml-5"
+            class="font-FC-Palette font-size text-field-size ml-16"
             prepend-icon="mdi-calendar-range"
             v-on="on"
           ></v-text-field>
@@ -118,10 +118,9 @@
           elevation="10"
           x-large
           :loading="loading"
-          >Sign up</v-btn
-        >
+          >Sign up</v-btn>
       </v-col>
-    </div>
+    </v-sheet>
   </v-form>
 </template>
 
@@ -268,15 +267,16 @@ export default {
   font-family: Arial, Helvetica, sans-serif;
 }
 .btnsignup {
-  font-size: 20px;
-  box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.25);
+  font-size: 24px;
+  box-shadow: 0px 0px 5px 5px rgba(83, 51, 51, 0.25);
   border-radius: 50px;
+  width: 160px;
 }
 .datefil {
   width: 60px;
 }
 .border {
-  font-size: 25px;
+  font-size: 21px;
   margin-left: 50px;
   margin-top: 50px;
   text-align: center;
