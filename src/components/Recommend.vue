@@ -17,7 +17,7 @@
       <v-img 
         :src="chosenFood_img[idex]"
         height="200px"
-        class = "my-5 img"
+        class = "my-5 img rounded-b"
       ></v-img>
       <v-card-text>
          <h2 class="food-name">{{chosenFood_name[idex]}}</h2>
@@ -49,13 +49,13 @@ export default {
     },
     methods:{
       setVariable(){
-        for(let i=0;i<10;i++){
+        for(let i=0;i<this.foods.length;i++){
           this.chosenFood_name[i] = this.foods[i].name
           this.chosenFood_img[i] = this.foods[i].img_path
         }
       },
       pick(index){
-        for(let i=0;i<10;i++){
+        for(let i=0;i<this.foods.length;i++){
           if(i===index){
             Food.dispatch('setFoodRec',this.foods[i])
           }

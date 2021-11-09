@@ -1,7 +1,7 @@
 <template>
 <div>
     <div>
-        <v-card class="name-food rounded-pill" elevation="5" max-width="300" height="45"  outlined v-if="!isRandom">
+        <v-card class="name-food rounded-pill" elevation="5" max-width="500" height="70"  outlined v-if="!isRandom">
         {{food.name}}</v-card>
     </div>
     <div class="food-result" align= "center">
@@ -22,20 +22,20 @@
     <v-sheet color="#C50000" elevation="10" width="280" height="70" rounded="pill">
         <p class="ingd">ส่วนประกอบ</p>
     </v-sheet>
-    <v-sheet  class="ingdList" width="850" max-height="1000"> 
+    <v-sheet  class="ingdList" width="850" max-height="2000"> 
         <v-card  v-for="item in igd" :key="item" class="igd rounded-pill" width="800" height="45"  outlined>
             <p class="igd_text">{{item.split(":")[0]}} <span style="float:right">{{item.split(":")[1]}}</span></p>  
         </v-card>
     </v-sheet>
 
-    <v-sheet v-if="how.length > 5" class="howto" color="#C50000" elevation="10" width="280" height="70" rounded="pill">
+    <v-sheet v-if="igd.length > 6" class="howto" color="#C50000" elevation="10" width="280" height="70" rounded="pill">
         <p>วิธีทำ</p>
     </v-sheet>
-    <v-sheet v-else-if="how.length <= 5" class="howto2" color="#C50000" elevation="10" width="280" height="70" rounded="pill">
+    <v-sheet v-else-if="igd.length <= 6" class="howto2" color="#C50000" elevation="10" width="280" height="70" rounded="pill">
         <p>วิธีทำ</p>
     </v-sheet>
-    <v-sheet class="howList" max-width="1200" max-height="1000">
-            <v-card  v-for="item in how" :key="item" class="how" max-width="950" height="45" rounded="pill" outlined>
+    <v-sheet class="howList" max-width="1500" max-height="1200">
+            <v-card  v-for="item in how" :key="item" class="how" max-width="1200" height="45" rounded="pill" outlined>
             <p class="how_text">{{item}} </p>  
         </v-card>
     </v-sheet>  

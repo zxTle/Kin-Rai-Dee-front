@@ -86,13 +86,15 @@ export default {
           alert("ไอดีผู้ใช้หรือรหัสผ่านผิด")
         });
     },
+
+    }
     // async getAccountData(uid){
     //   console.log("enter")
     //   await Account.dispatch("getAccData",uid);
     //   this.accountData = Account.getters.accountData
     //   this.$router.push("/");
     // },
-  },
+  
 };
 </script>
 
