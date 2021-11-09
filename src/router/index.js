@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Signup from "../views/Signup.vue"
-import Test from "@/views/Test.vue"
 import Random from "@/views/Random.vue"
 import Login from "@/views/auth/Login.vue"
 import Admin from '@/views/Admin.vue'
@@ -23,11 +22,6 @@ const routes = [
     path: '/signup',
     name: 'Signup',
     component: Signup,
-  },
-  {
-    path: '/test',
-    name : 'Test',
-    component :Test
   },
   {
     path: '/random',
