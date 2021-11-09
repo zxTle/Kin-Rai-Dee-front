@@ -17,7 +17,7 @@
       <v-img 
         :src="chosenFood_img[idex]"
         height="200px"
-        class = "my-5 img"
+        class = "my-5 img rounded-b"
       ></v-img>
       <v-card-text>
          <h2 class="food-name">{{chosenFood_name[idex]}}</h2>

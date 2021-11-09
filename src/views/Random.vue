@@ -122,6 +122,7 @@ import Bar from "../components/Bar.vue";
 import FoodResult from "../components/FoodResult.vue";
 import Rank from "../components/Rank.vue";
 import History from "../store/Histories";
+import { getAuth } from "firebase/auth";
 
 export default {
   components: { Bar, FoodResult, Rank },
@@ -161,15 +162,21 @@ export default {
       this.chosenFood = this.filteredFood[numIndex];
       this.chosenFood_name = this.filteredFood[numIndex].name;
       this.fetchFoodsRank();
+      this.addHistory()
+    },
+    async addHistory(){
+        if(getAuth().currentUser){
+        let foodHis = {
+          userId : getAuth().currentUser.uid,
+          foodId:this.chosenFood_name
+        }
+        await History.dispatch('addHistory',foodHis)
+      }
     },
     async fetchFoodsRank() {
       await FoodStore.dispatch("getFoodsRank");
       this.foodRank = FoodStore.getters.foodrank;
       this.isHaveData = true;
-    },
-    addHistory() {
-      // console.log(History.)
-      History.dispatch("fetchHistory");
     },
   },
   computed: {
@@ -205,7 +212,6 @@ export default {
         //if(this.selectedChoice.indexOf(element.category)===-1 && this.selectedChoice.indexOf(element.type)===-1) return this.foods;
         // return this.selectedChoice.includes(element.category);
       });
-      console.log(res);
       return res;
     },
   },
