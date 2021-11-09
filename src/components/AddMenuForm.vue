@@ -138,9 +138,9 @@ import Food from "../store/Foods";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { initializeApp } from "firebase/app";
 const firebaseConfig = {
-  apiKey: "AIzaSyCqS1mhcPEIkF4Ng_Igq5OygqIve9yXdj0",
-  authDomain: "kin-rai-dee-f9ff9.firebaseapp.com",
-  storageBucket: "kin-rai-dee-f9ff9.appspot.com",
+  apiKey: "AIzaSyCBeoRbSKhqMVsPor4PCfJ5iWz3A_As9XI",
+  authDomain: "kin-rai-dee-79110.firebaseapp.com",
+  storageBucket: "kin-rai-dee-79110.appspot.com",
 };
 const firebaseApp = initializeApp(firebaseConfig);
 const storage = getStorage(firebaseApp);

@@ -14,7 +14,7 @@
     "core-js": "^3.19.1",
     "data-fns": "^0.1.8",
     "date-fns": "^2.24.0",
-    "firebase": "^9.3.0",
+    "firebase": "^9.4.0",
     "vue": "^2.6.11",
     "vue-axios": "^3.4.0",
     "vue-router": "^3.5.3",
